@@ -19,6 +19,7 @@ public class Restaurant {
     int Res_id;
     String Name;
     String Logo_Url;
+    String address;
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Category> Caterogies;
 }
