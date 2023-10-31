@@ -4,6 +4,9 @@ import com.example.project.Models.Restaurant;
 import com.example.project.Repository.RestaurantRepository;
 import com.example.project.Services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,7 +25,14 @@ public class RestaurantServiceImp implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> searchRestaurant(String query) {
-        return restaurantRepository.searchRes(query);
+    public Page<Restaurant> searchRestaurant(String query,int page, int pageSize) {
+        Pageable p = PageRequest.of(page,pageSize);
+
+        return  this.restaurantRepository.searchRes(query,p);
+    }
+    @Override
+    public Page<Restaurant> getAllRestByPage(int page, int pageSize){
+        Pageable p = PageRequest.of(page,pageSize);
+        return  this.restaurantRepository.findAll(p);
     }
 }
