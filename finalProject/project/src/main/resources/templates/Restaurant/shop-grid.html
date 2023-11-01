@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+      layout:decorate="layout/index">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body  layout:fragment="body">
+
+
+
+<header class="header shop">
+    <!-- Topbar -->
+
+    <div class="middle-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-12">
+
+                    <!--/ End Logo -->
+                    <!-- Search Form -->
+                    <div class="search-top">
+                        <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
+                        <!-- Search Form -->
+                        <div class="search-top">
+                            <form class="search-form">
+                                <input type="text" placeholder="Search here..." name="search">
+                                <button value="search" type="submit"><i class="ti-search"></i></button>
+                            </form>
+                        </div>
+                        <!--/ End Search Form -->
+                    </div>
+                    <!--/ End Search Form -->
+                    <div class="mobile-nav"></div>
+                </div>
+                <div class="col-lg-8 col-md-7 col-12">
+                    <div class="search-bar-top">
+                        <div class="search-bar">
+
+
+                            <input name="search" id="SearchResByName"  placeholder="Search Products Here....." type="search">
+                            <button class="btnSearch" id="searchRes"><i class="ti-search"></i></button>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Header Inner -->
+
+    <!--/ End Header Inner -->
+</header>
+
+<div class="container ">
+    <div class="row " id="res-container">
+        <div class="col-lg-3">
+            <div class="custom-options" th:each="Res: ${listCategory}">
+                <div th:text="${Res.name}"></div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row" id="productList">
+                <div class="card mb-3 mt-3 col-lg-4 col-md-6 col-12" style="width: 18rem;" th:each="Res: ${listAllFood}">
+                    <img th:src="${Res.image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 th:text="${Res.name}" class="card-title">Card title</h5>
+                        <p  th:text="${Res.price}" class="card-text"></p>
+                        <p  th:text="${Res.unit_quantity}" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

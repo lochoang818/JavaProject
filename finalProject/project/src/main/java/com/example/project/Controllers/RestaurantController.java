@@ -1,5 +1,7 @@
 package com.example.project.Controllers;
 
+import com.example.project.Models.Category;
+import com.example.project.Models.Food;
 import com.example.project.Models.Restaurant;
 import com.example.project.ServiceImplement.RestaurantServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,26 @@ public class RestaurantController {
 
         return modelAndView;
     }
+    @GetMapping("/showAll/{idRes}")
+    public ModelAndView index2(@PathVariable Long idRes){
+        List<Category> showResultCategory = restaurantServiceImp.searchCategory(String.valueOf(idRes));
+        List<Food> showResultAllFood = restaurantServiceImp.allFood();
 
+        ModelAndView modelAndView = new ModelAndView("Restaurant/shop-grid");
+        modelAndView.addObject("listCategory", showResultCategory);
+        modelAndView.addObject("listAllFood", showResultAllFood);
+        return modelAndView;
+    }
+    @GetMapping("/showAll/{idRes}/{idCate}")
+    public ModelAndView index3(@PathVariable Long idRes, @PathVariable Long idCate){
+        List<Category> showResultCategory = restaurantServiceImp.searchCategory(String.valueOf(idRes));
+        List<Food> showResultAllFood = restaurantServiceImp.foodOfCategory(String.valueOf(idCate));
+
+        ModelAndView modelAndView = new ModelAndView("Restaurant/shop-grid");
+        modelAndView.addObject("listCategory", showResultCategory);
+        modelAndView.addObject("listAllFood", showResultAllFood);
+        return modelAndView;
+    }
 
 
 
