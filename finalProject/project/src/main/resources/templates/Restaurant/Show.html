@@ -39,6 +39,7 @@
         <div class="col-lg-8 col-md-7 col-12">
           <div class="search-bar-top">
             <div class="search-bar">
+              <a th:href="@{/Restaurant/showAll(search='')}" class="btn btn-primary">All</a>
 
 
                 <input name="search" id="SearchResByName"  placeholder="Search Products Here....." type="search">
@@ -65,7 +66,7 @@
       <div class="card-body">
         <h5 th:text="${Res.name}" class="card-title">Card title</h5>
         <p  th:text="${Res.address}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Food Now</a>
+        <a th:href="@{/Restaurant/showAll/{id}(id=${Res.getRes_id()})}" class="btn btn-primary">Food Now</a>
       </div>
     </div>
 
@@ -76,18 +77,30 @@
 <div class="container mt-3 mb-5">
 
 
-
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'?page=' + ${currentPage - 1}}">Previous</a></li>
-
-      <li th:each="i : ${#numbers.sequence(1, totalPage)}" th:classappend="${currentPage == i - 1} ? 'active' : ''" class="page-item">
-        <a class="page-link" th:href="@{'?page=' + ${i - 1}}">[[${i}]]</a>
+      <li th:if="${currentPage != 0}" class="page-item">
+        <a class="page-link" th:href="@{'?page=' + ${currentPage - 1} + '&search=' + ${search}}">Previous</a>
       </li>
 
-      <li th:if="${currentPage + 1 != totalPage}" class="page-item"><a class="page-link" th:href="@{'?page=' + ${currentPage + 1}}">Next</a></li>
+      <li th:each="i : ${#numbers.sequence(1, totalPage)}"
+          th:classappend="${currentPage == i - 1} ? 'active' : ''" class="page-item">
+        <a class="page-link" th:href="@{'?page=' + ${i - 1} + '&search=' + ${search}}">[[${i}]]</a>
+      </li>
+
+      <li th:if="${currentPage + 1 != totalPage}" class="page-item">
+        <a class="page-link" th:href="@{'?page=' + ${currentPage + 1} + '&search=' + ${search}}">Next</a>
+      </li>
     </ul>
   </nav>
+
+
+
+
+
+
+
+
 </div>
 
 </body>

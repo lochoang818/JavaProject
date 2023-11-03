@@ -8,75 +8,147 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body  layout:fragment="body">
-
-
-
-<header class="header shop">
-    <!-- Topbar -->
-
-    <div class="middle-inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-12">
-
-                    <!--/ End Logo -->
-                    <!-- Search Form -->
-                    <div class="search-top">
-                        <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-                        <!-- Search Form -->
-                        <div class="search-top">
-                            <form class="search-form">
-                                <input type="text" placeholder="Search here..." name="search">
-                                <button value="search" type="submit"><i class="ti-search"></i></button>
-                            </form>
-                        </div>
-                        <!--/ End Search Form -->
-                    </div>
-                    <!--/ End Search Form -->
-                    <div class="mobile-nav"></div>
-                </div>
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-
-
-                            <input name="search" id="SearchResByName"  placeholder="Search Products Here....." type="search">
-                            <button class="btnSearch" id="searchRes"><i class="ti-search"></i></button>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-    <!-- Header Inner -->
-
-    <!--/ End Header Inner -->
-</header>
-
-<div class="container ">
-    <div class="row " id="res-container">
-        <div class="col-lg-3">
-            <div class="custom-options" th:each="Res: ${listCategory}">
-                <div th:text="${Res.name}"></div>
-            </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="row" id="productList">
-                <div class="card mb-3 mt-3 col-lg-4 col-md-6 col-12" style="width: 18rem;" th:each="Res: ${listAllFood}">
-                    <img th:src="${Res.image}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 th:text="${Res.name}" class="card-title">Card title</h5>
-                        <p  th:text="${Res.price}" class="card-text"></p>
-                        <p  th:text="${Res.unit_quantity}" class="card-text"></p>
-                    </div>
+<body  >
+<div layout:fragment="body">
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a >Home<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+<section class="product-area shop-sidebar shop section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-12">
+                <div class="shop-sidebar">
+                    <!-- Single Widget -->
+                    <div class="single-widget category">
+                        <h3 class="title">Categories</h3>
+                        <ul class="categor-list">
+                            <li><a href="#">All</a></li>
+
+
+                            <li><a href="#" th:each="Res: ${listCategory}"  th:text="${Res.name}"></a></li>
+
+
+                        </ul>
+                    </div>
+                    <!--/ End Single Widget -->
+                    <!-- Shop By Price -->
+                    <div class="single-widget range">
+                        <h3 class="title">Shop by Price</h3>
+                        <div class="price-filter">
+                            <div class="price-filter-inner">
+                                <div id="slider-range"></div>
+                                <div class="price_slider_amount">
+                                    <div class="label-input">
+                                        <span>Range:</span><input type="text" id="amount" name="price"
+                                                                  placeholder="Add Your Price" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="check-box-list">
+                            <li>
+                                <a href="#">$100 - $250</a>
+                            </li>
+                            <li>
+                                <a href="#">$100 - $250</a>
+                            </li>
+                            <li>
+                                <a href="#">$100 - $250</a>
+                            </li>
+                            <li>
+                                <a href="#">$100 - $250</a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                    <!--/ End Shop By Price -->
+                    <!-- Single Widget -->
+
+
+                    <!--/ End Single Widget -->
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Shop Top -->
+                        <div class="shop-top">
+                            <div class="shop-shorter">
+
+                                <div class="single-shorter">
+                                    <label>Sort By :</label>
+
+                                    <select id="sortOptions">
+                                        <option value="NameASC" >Name ASC</option>
+                                        <option value="NameDESC" >Name DESC</option>
+                                        <option value="PriceASC" >Price ASC</option>
+                                        <option value="PriceDESC" >Price DESC</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/ End Shop Top -->
+                    </div>
+                </div>
+                <div class="row" id="food-container">
+
+                    <div class="col-lg-4 col-md-6 col-12"  th:each="Res: ${listAllFood}">
+                        <div class="single-product">
+                            <div class="product-img">
+                                <a href="product-details.html">
+                                    <img class="default-img" th:src="${Res.getImage()}" alt="#">
+                                    <img class="hover-img" th:src="${Res.getImage()}" alt="#">
+                                </a>
+                                <div class="button-head">
+
+                                    <div class="product-action-2">
+                                        <a title="Add to cart" >Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <h3><a href="product-details.html" th:text="${Res.getName()}">@f.Name</a></h3>
+                                <div class="product-price">
+                                    <span th:text="${Res.getPrice()}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+                <br />
+
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
 </div>
 </body>
 

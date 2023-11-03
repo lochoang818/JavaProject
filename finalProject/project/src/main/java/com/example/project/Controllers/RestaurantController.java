@@ -19,19 +19,20 @@ import java.util.List;
 public class RestaurantController {
     @Autowired
     private RestaurantServiceImp restaurantServiceImp;
-    @GetMapping("/show")
-    public ModelAndView index(@RequestParam(value="page", defaultValue = "0") int page,@RequestParam(value="search", required = false) String search) {
+    @GetMapping("/showAll")
+    public ModelAndView index(@RequestParam(value="page", defaultValue = "0") int page,@RequestParam(value="search", defaultValue = "") String search) {
         Page<Restaurant> showResult;
-        if(search!=null){
-            showResult= restaurantServiceImp.searchRestaurant(search,page,3);
-        }
-        else {
-            showResult = restaurantServiceImp.getAllRestByPage(page,3);
 
-        }
+        showResult= restaurantServiceImp.searchRestaurant(search,page,3);
+
+
+
+
 
         ModelAndView modelAndView = new ModelAndView("Restaurant/Show");
         modelAndView.addObject("listRes", showResult);
+        modelAndView.addObject("search", search);
+
         modelAndView.addObject("totalPage",showResult.getTotalPages());
         modelAndView.addObject("currentPage",page);
         modelAndView.addObject("totalItem",showResult.getTotalElements());

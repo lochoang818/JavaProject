@@ -52,6 +52,9 @@ Version:1.0
 	-moz-box-shadow: -3px 0px 25px -2px rgba(0, 0, 0, 0.2);
 	box-shadow: -3px 0px 25px -2px rgba(0, 0, 0, 0.2);
 }
+.activeSelect {
+	color: #F7941D !important;
+}
 .color-plate.active{
 	right:0;
 }
@@ -704,7 +707,7 @@ Version:1.0
 	padding: 0 25px 0 20px;
 	width: 328px;
 }
-.header.shop .search-bar .btnSearch {
+.header.shop .search-bar .btnn {
 	height: 50px;
 	line-height: 53px;
 	width: 62px;
@@ -966,6 +969,8 @@ Version:1.0
 .header.shop .nav li.active a{
 	color:#fff;
 	background:#F7941D;
+	pointer-events:none;
+	
 }
 .header.shop.v2 .nav li.active a{
 	color:#333 !important;
@@ -1212,14 +1217,14 @@ Version:1.0
 	background: #fff;
 	overflow: hidden;
 }
-.hero-slider .single-slider {
-	height: auto;
-	background-image: url('https://via.placeholder.com/1900x700');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-    height: 510px;
-}
+	.hero-slider .single-slider {
+		height: auto;
+		background-image: url(../images/flatten.jpg); 
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		height: 510px;
+	}
 .hero-slider .text-inner {
 	
 }
@@ -1238,12 +1243,12 @@ Version:1.0
 	font-size: 20px;
 	display: block;
 	margin-bottom: 12px;
-	color: #333;
+	color: white;
 	font-weight: 700;
 	line-height: initial;
 }
 .hero-slider .hero-text p {
-	color: #333;
+	color: white;
 	margin-bottom: 35px;
 }
 .hero-slider .hero-text .button{
@@ -3381,15 +3386,16 @@ Version:1.0
 	text-align: center;
 	padding:0px 35px;
 }
-.shop.checkout .single-widget.get-button .btn {
-	height: 46px;
-	width: 100%;
-	line-height: 19px;
-	text-align: center;
-	border-radius: 0;
-	text-transform: uppercase;
-	color: #fff;
-}
+	.shop.checkout .single-widget.get-button .btn {
+		cursor: pointer;
+		height: 46px;
+		width: 100%;
+		line-height: 19px;
+		text-align: center;
+		border-radius: 0;
+		text-transform: uppercase;
+		color: #fff;
+	}
 /*======================================
    End Checkout Form CSS
 ========================================*/
@@ -3601,44 +3607,44 @@ Version:1.0
 	border-color:transparent;
 }
 /* Pagination CSS */
-.pagination {
-	text-align: left;
-	margin: 50px 0 0 0;
-	display:block;
-}
-.pagination.center {
-	text-align: center;
-}
-.pagination .pagination-list li {
-	margin-right: 5px;
-	display: inline-block;
-}
-.pagination .pagination-list li:last-child{
-	margin-right:0px;
-}
-.pagination .pagination-list li a {
-	background: #F6F7FB;
-	color: #666;
-	padding: 6px 18px;
-	font-weight: 400;
-	border: 1px solid #e1e1e1;
-	font-size: 16px;
-	border-radius: 0px;
-}
-.pagination .pagination-list li.active a,
-.pagination .pagination-list li:hover a{
-	background: #F7941D;
-	color: #fff;
-	border-color: transparent;
-}
-.pagination .pagination-list li a i{
-	font-size:13px;
-}
-.pagination .pagination-list li a i{}
-.blog-grids.pagination{
-	margin-top:50px;
-	text-align:center;
-}
+/*.pagination {*/
+/*	text-align: left;*/
+/*	margin: 50px 0 0 0;*/
+/*	display:block;*/
+/*}*/
+/*.pagination.center {*/
+/*	text-align: center;*/
+/*}*/
+/*.pagination .pagination-list li {*/
+/*	margin-right: 5px;*/
+/*	display: inline-block;*/
+/*}*/
+/*.pagination .pagination-list li:last-child{*/
+/*	margin-right:0px;*/
+/*}*/
+/*.pagination .pagination-list li a {*/
+/*	background: #F6F7FB;*/
+/*	color: #666;*/
+/*	padding: 6px 18px;*/
+/*	font-weight: 400;*/
+/*	border: 1px solid #e1e1e1;*/
+/*	font-size: 16px;*/
+/*	border-radius: 0px;*/
+/*}*/
+/*.pagination .pagination-list li.active a,*/
+/*.pagination .pagination-list li:hover a{*/
+/*	background: #F7941D;*/
+/*	color: #fff;*/
+/*	border-color: transparent;*/
+/*}*/
+/*.pagination .pagination-list li a i{*/
+/*	font-size:13px;*/
+/*}*/
+/*.pagination .pagination-list li a i{}*/
+/*.blog-grids.pagination{*/
+/*	margin-top:50px;*/
+/*	text-align:center;*/
+/*}*/
 /*======================================
    End Shop List CSS
 ========================================*/
@@ -4940,6 +4946,8 @@ Version:1.0
 	color:#fff;
 	text-decoration:underline;
 }
+
 /*=============================
 	End Footer CSS
 ===============================*/
+

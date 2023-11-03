@@ -5,6 +5,6 @@ var searchResElement = document.getElementById("searchRes");
 searchResElement.addEventListener("click", function() {
     var inputValue = searchInput.value;
 
-    window.location.href = '/Restaurant/show?search=' + inputValue;
+    window.location.href = '/Restaurant/showAll?search=' + inputValue;
 
 });

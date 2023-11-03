@@ -1,0 +1,43 @@
+﻿.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+    .pagination li {
+        display: inline;
+        margin: 0 2px;
+        padding: 8px 16px;
+        text-decoration: solid;
+        border: 2px solid black;
+        background-color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .pagination li:hover {
+            color: #0056b3;
+            background-color: skyblue;
+        }
+
+        .pagination li a {
+           
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit; /* Giữ màu chữ theo thiết lập của cha */
+        }
+        /*
+    .pagination .disabled li {
+        color: #ffffff;
+        background-color: #ff0000;
+        pointer-events: none;
+    }*/
+        .pagination .active {
+            color: white;
+            background-color: gray;
+            pointer-events: none;
+        }

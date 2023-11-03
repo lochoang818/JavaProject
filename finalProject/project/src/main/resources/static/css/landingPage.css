@@ -194,7 +194,8 @@ form {
     display: flex;
     background: rgba(255, 255, 255, 0.94);
     border-radius: 5px;
-    margin-top: 16px;
+    margin-top: 24px;
+    justify-content:center;
 }
 
     .field span {
@@ -268,7 +269,9 @@ form {
 }
 
 #check1,
-#check2 {
+#check2,
+#check3,
+#check4{
     display: block;
     position: relative;
     margin-top: 16px;
@@ -276,7 +279,7 @@ form {
 }
 
 .space {
-    margin-top: 16px;
+    margin-top: 24px;
 }
 
 .pass {
@@ -297,7 +300,7 @@ form {
 button[type="submit"] {
     height: 45px;
     width: 100%;
-    background: #7e7e7e;
+    background: #ff0000;
     border: none;
     outline: none;
     color: white;
@@ -346,3 +349,10 @@ button[type="submit"] {
         .already-have-account a:hover {
             color: #ff0000;
         }
+.field span .field-validation-error {
+    color: red;
+    font-size: 13px;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
