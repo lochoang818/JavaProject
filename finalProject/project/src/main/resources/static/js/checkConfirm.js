@@ -7,7 +7,7 @@ function checkConfirm() {
     var signup = document.getElementById('createButton');
     var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var validPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    if (password == confirmPassword && check() == 2 && (username.match(validRegex) || username.match(validPhone))) {
+    if (password == confirmPassword && check() == 2 ) {
         signup.style.pointerEvents = "auto";
         signup.style.backgroundColor = 'red';
         $("#createButton").hover(function () { $(this).css({ backgroundColor: " #e20714" }) }, function () { $(this).css({ backgroundColor: "red" }) });

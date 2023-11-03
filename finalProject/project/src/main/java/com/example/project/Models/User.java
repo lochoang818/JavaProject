@@ -17,11 +17,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int User_id;
-    String role;
     String address;
-    String Name;
+    String name;
     String email;
     String phone;
+    String password;
+    String role;
+    boolean enable;
+    String verificationCode;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Orders> orders;
