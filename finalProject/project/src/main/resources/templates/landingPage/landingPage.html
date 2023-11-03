@@ -7,6 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="/css/magnific-popup.min.css">
@@ -60,8 +65,8 @@
                            onInput="checkLogin()">
                     <span class="show0">SHOW</span>
                 </div>
-                <div class="pass">
-                    <!-- <a href="#">Forgot password</a> -->
+                <div class="pass"  id="forgot-password-btn">
+                     <a href="/forgotPassword">Forgot password</a>
                 </div>
                 <div class="field">
                     <button type="submit" name="btnSignin" id="signinButton"> SIGN IN </button>
@@ -78,35 +83,35 @@
                         <p class="text-center text-success fs-2" style="font-size: 18px">[[${session.msg}]]</p>
                         <th:block th:text="${@userServiceImp.removeSessionMessage()}"></th:block>
                 </div>
-                <div class="field">
+                <div class="field" style="height: 35px">
                     <span class="fa fa-envelope"></span>
                     <input type="text" id="email" required placeholder="Email" name="email" onInput="checkConfirm()">
 
                 </div>
-                <div class="field">
+                <div class="field" style="height: 35px">
                     <span class="fa fa-user"></span>
                     <input type="text" id="username" required placeholder="Username" name="name" onInput="checkConfirm()">
 
                 </div>
-                <div class="field">
+                <div class="field" style="height: 35px">
                     <span class="fa fa-phone"></span>
                     <input type="text" id="phone" required placeholder="Phone number" name="phone" onInput="checkConfirm()">
 
                 </div>
-                <div class="field">
+                <div class="field" style="height: 35px">
                     <span class="fa fa-map"></span>
                     <input type="text" id="address" required placeholder="Address" name="address" onInput="checkConfirm()">
 
                 </div>
 
-                <div class="field space">
+                <div class="field space" style="height: 35px">
                     <span class="fa fa-lock"></span>
                     <input type="password" id="password" required placeholder="Password" name="password"
                            onInput="check(); checkConfirm()">
                     <span class="show">SHOW</span>
 
                 </div>
-                <div class="warning">
+                <div class="warning" style="margin-bottom: -20px">
                     <div id="check1">
                         <i class="fa fa-check-circle"></i>
                         Password is at least 8 characters long.
@@ -125,7 +130,7 @@
                     </div>
 
                 </div>
-                <div class="field space">
+                <div class="field space"  style="height: 35px">
                     <span class="fa fa-lock"></span>
                     <input type="password" id="confirm" name="confirm" required placeholder="Confirm Password"
                            onInput="checkConfirm()">
@@ -141,6 +146,60 @@
                     <a href="/signin">Already have an account?</a>
                 </div>
 
+            </form>
+
+            <form action="" class="forgot-password-form" method="post">
+                <header>Forgot Password</header>
+                <div class="field">
+                    <span class="fa fa-envelope"></span>
+                    <input type="text" class="email" required placeholder="Email" onInput="checkConfirm2()">
+                </div>
+                <div class="field">
+                    <span class="fa fa-code"></span>
+                    <input type="text" class="otp" required placeholder="OTP" onInput="checkConfirm2()">
+                    <button class="send-otp-btn"
+                            style="background-color: #ff0000; width: fit-content; color:white; cursor: pointer;">Send
+                        Otp</button>
+                </div>
+
+                <div class="field space">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" class="password" required placeholder="Password"
+                           onInput="check2(); checkConfirm2()">
+                </div>
+                <div class="warning">
+                    <div class="check1">
+                        <i class="fa fa-check-circle"></i>
+                        Password is at least 8 characters long.
+                    </div>
+                    <div class="check2">
+                        <i class="fa fa-check-circle"></i>
+                        Password contains at least one letter or number
+                    </div>
+                    <div class="check3">
+                        <i class="fa fa-check-circle"></i>
+                        Password contains at least one Capital letter
+                    </div>
+                    <div class="check4">
+                        <i class="fa fa-check-circle"></i>
+                        Password contains at least one special character
+                    </div>
+
+                </div>
+                <div class="field space">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" class="confirm" required placeholder="Confirm Password"
+                           onInput="checkConfirm2()">
+                </div>
+
+                <div class="field signup">
+                    <button type="submit" name="btnSignup" class="createButton"
+                            style="background:#7e7e7e; pointer-events:none" disable>CREATE ACCOUNT</button>
+                </div>
+
+                <div class="already-have-account" id="remember-password-btn">
+                    <a href="/signin">REMEMBER PASSWORD</a>
+                </div>
             </form>
         </div>
     </div>

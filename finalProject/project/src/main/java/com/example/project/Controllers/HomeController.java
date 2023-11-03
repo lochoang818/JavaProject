@@ -47,6 +47,11 @@ public class HomeController {
         return "landingPage/landingPage";
     }
 
+    @GetMapping("/forgotPassword")
+    public String forgotPassword() {
+        return "landingPage/landingPage";
+    }
+
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User user, HttpSession session, Model m, HttpServletRequest request) {
         String url = request.getRequestURL().toString();

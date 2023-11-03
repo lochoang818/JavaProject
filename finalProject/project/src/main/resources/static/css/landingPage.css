@@ -24,7 +24,6 @@ html {
     background-image: url(../images/background.jpg);
 }
 
-
 .content {
     position: absolute;
     width: 100%;
@@ -75,14 +74,19 @@ form {
     transition: 0.2s 0.7s ease-in-out;
 }
 
-    form.sign-in-form {
-        z-index: 2;
-    }
+form.sign-in-form {
+    z-index: 2;
+}
 
-    form.sign-up-form {
-        z-index: 1;
-        opacity: 0;
-    }
+form.sign-up-form {
+    z-index: 1;
+    opacity: 0;
+}
+
+form.forgot-password-form {
+    z-index: 1;
+    opacity: 0;
+}
 
 .panels-container {
     position: absolute;
@@ -103,21 +107,21 @@ form {
     z-index: 7;
 }
 
-    .panel .container {
-        color: white;
-        transition: 0.9s 0.6s ease-in-out;
-    }
+.panel .container {
+    color: white;
+    transition: 0.9s 0.6s ease-in-out;
+}
 
-    .panel h3 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        line-height: 1;
-    }
+.panel h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+}
 
-    .panel p {
-        font-size: 0.95rem;
-        padding: 0.7rem 0;
-    }
+.panel p {
+    font-size: 0.95rem;
+    padding: 0.7rem 0;
+}
 
 .btn.transparent {
     margin: 0;
@@ -139,10 +143,10 @@ form {
     padding: 3rem 12% 2rem 17%;
 }
 
-    .right-panel .container,
-    .right-panel .image {
-        transform: translateX(800px);
-    }
+.right-panel .container,
+.right-panel .image {
+    transform: translateX(800px);
+}
 
 .image {
     width: 100%;
@@ -187,6 +191,44 @@ form {
     opacity: 1;
 }
 
+/* ANIMATION */
+.Section_top.forgot-password-mode:before {
+    transform: translate(100%, -50%);
+    right: 52%;
+}
+
+.Section_top.forgot-password-mode .left-panel .image,
+.Section_top.forgot-password-mode .left-panel .container {
+    transform: translateX(-800px);
+}
+
+.Section_top.forgot-password-mode .right-panel .image,
+.Section_top.forgot-password-mode .right-panel .container {
+    transform: translateX(0px);
+}
+
+.Section_top.forgot-password-mode .left-panel {
+    pointer-events: none;
+}
+
+.Section_top.forgot-password-mode .right-panel {
+    pointer-events: all;
+}
+
+.Section_top.forgot-password-mode .signin-signup {
+    left: 50%;
+}
+
+.Section_top.forgot-password-mode form.sign-in-form {
+    z-index: 1;
+    opacity: 0;
+}
+
+.Section_top.forgot-password-mode form.forgot-password-form {
+    z-index: 2;
+    opacity: 1;
+}
+
 .field {
     position: relative;
     height: 45px;
@@ -195,27 +237,27 @@ form {
     background: rgba(255, 255, 255, 0.94);
     border-radius: 5px;
     margin-top: 24px;
-    justify-content:center;
+    justify-content: center;
 }
 
-    .field span {
-        color: #222;
-        width: 40px;
-        line-height: 45px;
-    }
+.field span {
+    color: #222;
+    width: 40px;
+    line-height: 45px;
+}
 
-    .field input,
-    .field button {
-        height: 100%;
-        width: 100%;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: #222;
-        font-size: 16px;
-        font-family: "Poppins", sans-serif;
-        border-radius: 5px;
-    }
+.field input,
+.field button {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #222;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    border-radius: 5px;
+}
 
 .show0 {
     position: absolute;
@@ -271,7 +313,17 @@ form {
 #check1,
 #check2,
 #check3,
-#check4{
+#check4 {
+    display: block;
+    position: relative;
+    margin-top: 16px;
+    color: #fff;
+}
+
+.check1,
+.check2,
+.check3,
+.check4 {
     display: block;
     position: relative;
     margin-top: 16px;
@@ -287,15 +339,15 @@ form {
     margin: 10px 0;
 }
 
-    .pass a {
-        color: white;
-        font-family: "Poppins", sans-serif;
-        text-decoration: none;
-    }
+.pass a {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+}
 
-    .pass:hover a {
-        text-decoration: underline;
-    }
+.pass:hover a {
+    text-decoration: underline;
+}
 
 button[type="submit"] {
     height: 45px;
@@ -322,33 +374,33 @@ button[type="submit"] {
     margin-bottom: 30px;
 }
 
-    .signup a {
-        color: #cc0000;
-        text-decoration: none;
-        font-weight: 700;
-        font-family: "Montserrat", sans-serif;
-    }
+.signup a {
+    color: #cc0000;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+}
 
-        .signup a:hover {
-            /* text-decoration: underline; */
-            color: #ff0000;
-        }
+.signup a:hover {
+    /* text-decoration: underline; */
+    color: #ff0000;
+}
 
 .already-have-account {
     font-size: 15px;
 }
 
-    .already-have-account a {
-        font-family: "Montserrat", sans-serif;
-        color: #cc0000;
-        text-decoration: none;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
+.already-have-account a {
+    font-family: "Montserrat", sans-serif;
+    color: #cc0000;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+}
 
-        .already-have-account a:hover {
-            color: #ff0000;
-        }
+.already-have-account a:hover {
+    color: #ff0000;
+}
 .field span .field-validation-error {
     color: red;
     font-size: 13px;
