@@ -39,8 +39,24 @@
                         <ul class="list-main">
                             <li><i class="ti-location-pin"></i> Store location</li>
                             <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-                            <li><i class="ti-user"></i> <a href="#">My account</a></li>
-                            <li><i class="ti-power-off"></i><a href="landingPage.html">Login</a></li>
+                            <li><i class="ti-user"></i>
+                                <span th:if="${user != null}">
+                                    <a th:text="${user.name}"></a>
+                                </span>
+                                <span th:unless="${user != null}">
+                                    <a th:href="@{/register}">Khách</a>
+                                </span>
+                            </li>
+                            <li><i class="ti-power-off"></i>
+                                <span th:if="${user != null}">
+                                    <a th:href="@{/logout}">Logout</a>
+                                </span>
+                                <span th:unless="${user != null}">
+                                    <a th:href="@{/signin}">Login</a>
+                                </span>
+                            </li>
+
+
                         </ul>
                     </div>
                     <!-- End Top Right -->

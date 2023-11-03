@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/css/landingPage.css">
+</head>
+
+
+<body layout:fragment="body">
+<div class="Section_top" >
+    <div class="content" >
+        <div class="signin-signup">
+            <form action="/userLogin" class="sign-in-form" method="post">
+                <header>Login</header>
+                <th:block th:if="${param.error}">
+                    <p class="text-center text-danger fs-5" style="font-size: 18px">Invalid username or password</p>
+                </th:block>
+                <div>
+                    <th:block th:if="${session.msg2}">
+                        <p class="text-center text-success fs-2" style="font-size: 18px">[[${session.msg2}]]</p>
+                        <th:block th:text="${@userServiceImp.removeSessionMessage()}"></th:block>
+                </div>
+                <div class="field">
+                    <span class="fa fa-user"></span>
+                    <input type="text" name="username" id="usernameLogin" required onInput="checkLogin()"
+                           placeholder="Email">
+                </div>
+                <div class="field space">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" name="password" id="passwordLogin" required placeholder="Password"
+                           onInput="checkLogin()">
+                    <span class="show0">SHOW</span>
+                </div>
+                <div class="pass">
+                    <!-- <a href="#">Forgot password</a> -->
+                </div>
+                <div class="field">
+                    <button type="submit" name="btnSignin" id="signinButton"> SIGN IN </button>
+                </div>
+                <div class="signup" id="sign-up-btn">
+                    Don't have an account? <a href="/register">CREATE ACCOUNT</a>
+                </div>
+            </form>
+
+            <form action="/saveUser" class="sign-up-form" method="post">
+                <header>Sign Up</header>
+                <div>
+                    <th:block th:if="${session.msg}">
+                        <p class="text-center text-success fs-2" style="font-size: 18px">[[${session.msg}]]</p>
+                        <th:block th:text="${@userServiceImp.removeSessionMessage()}"></th:block>
+                </div>
+                <div class="field">
+                    <span class="fa fa-envelope"></span>
+                    <input type="text" id="email" required placeholder="Email" name="email" onInput="checkConfirm()">
+
+                </div>
+                <div class="field">
+                    <span class="fa fa-user"></span>
+                    <input type="text" id="username" required placeholder="Username" name="name" onInput="checkConfirm()">
+
+                </div>
+                <div class="field">
+                    <span class="fa fa-phone"></span>
+                    <input type="text" id="phone" required placeholder="Phone number" name="phone" onInput="checkConfirm()">
+
+                </div>
+                <div class="field">
+                    <span class="fa fa-map"></span>
+                    <input type="text" id="address" required placeholder="Address" name="address" onInput="checkConfirm()">
+
+                </div>
+
+                <div class="field space">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" id="password" required placeholder="Password" name="password"
+                           onInput="check(); checkConfirm()">
+                    <span class="show">SHOW</span>
+
+                </div>
+                <div class="warning">
+                    <div id="check1">
+                        <i class="fa fa-check-circle"></i>
+                        Password is at least 8 characters long.
+                    </div>
+                    <div id="check2">
+                        <i class="fa fa-check-circle"></i>
+                        Password contains at least one letter or number
+                    </div>
+                    <div id="check3">
+                        <i class="fa fa-check-circle"></i>
+                        Password contains at least one Capital letter
+                    </div>
+                    <div id="check4">
+                        <i class="fa fa-check-circle"></i>
+                        Password contains at least one special character
+                    </div>
+
+                </div>
+                <div class="field space">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" id="confirm" name="confirm" required placeholder="Confirm Password"
+                           onInput="checkConfirm()">
+                    <span class="show1">SHOW</span>
+                </div>
+
+                <div class="field signup">
+                    <button type="submit" name="btnSignup" id="createButton"
+                            style="background:#7e7e7e; pointer-events:none"disable>CREATE ACCOUNT</button>
+                </div>
+
+                <div class="already-have-account" id="sign-in-btn">
+                    <a href="/signin">Already have an account?</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Sign Up succeeded  -->
+
+</div>
+</body>
+
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<!-- Popper JS -->
+<script src="/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Color JS -->
+<!--<script src="/js/colors.js"></script>-->
+<!-- Slicknav JS -->
+<script src="/js/slicknav.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="/js/owl-carousel.js"></script>
+<!-- Magnific Popup JS -->
+<script src="/js/magnific-popup.js"></script>
+<!-- Waypoints JS -->
+<script src="/js/waypoints.min.js"></script>
+<!-- Countdown JS -->
+<script src="/js/finalcountdown.min.js"></script>
+<!-- Nice Select JS -->
+<script src="/js/nicesellect.js"></script>
+<!-- Flex Slider JS -->
+<script src="/js/flex-slider.js"></script>
+<!-- ScrollUp JS -->
+<script src="/js/scrollup.js"></script>
+<!-- Onepage Nav JS -->
+<script src="/js/onepage-nav.min.js"></script>
+<!-- Easing JS -->
+<script src="/js/easing.js"></script>
+<!-- Active JS -->
+<script src="/js/active.js"></script>
+<script src="/js/searchRest.js"></script>
+<script src="/js/showButton.js"></script>
+<script src="/js/landingPage.js"></script>
+<script src="/js/checkConfirm.js"></script>
+</html>
