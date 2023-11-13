@@ -10,10 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class RestaurantServiceImp implements RestaurantService {
     private RestaurantRepository restaurantRepository;
     @Autowired
@@ -47,5 +48,10 @@ public class RestaurantServiceImp implements RestaurantService {
     @Override
     public List<Food> foodOfCategory(String query) {
         return restaurantRepository.foodOfCategory(query);
+    }
+
+    @Override
+    public Restaurant findRestaurantByRes_id(int res_id) {
+        return restaurantRepository.findByResId(res_id);
     }
 }

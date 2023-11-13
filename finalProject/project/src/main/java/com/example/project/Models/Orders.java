@@ -1,5 +1,6 @@
 package com.example.project.Models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,17 +14,24 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property ="order_id")
 public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int order_id;
+    String order_id;
     String Phone;
     String address;
     double totalPrice;
     String status;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<FoodOrder> foodOrders;
+    @JsonIgnore
+    private Set<FoodOrder> foodOrders;
 }

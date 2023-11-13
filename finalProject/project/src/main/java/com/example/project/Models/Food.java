@@ -1,5 +1,6 @@
 package com.example.project.Models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +14,12 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property ="foodId")
+
 public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int Food_id;
+    int foodId;
     String image;
     String name;
     double price;
@@ -26,5 +29,6 @@ public class Food {
     private Category category;
 
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     Set<FoodOrder> foodOrders;
 }

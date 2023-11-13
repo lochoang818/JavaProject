@@ -62,11 +62,11 @@
   <div class="row " id="res-container">
 
     <div class="card mb-3 mt-3 col-lg-4 col-md-6 col-12" style="width: 18rem;" th:each="Res: ${listRes}">
-      <img th:src="${Res.logo_Url}" class="card-img-top" alt="...">
+      <img th:src="${Res.getLogoUrl()}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 th:text="${Res.name}" class="card-title">Card title</h5>
         <p  th:text="${Res.address}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a th:href="@{/Restaurant/showAll/{id}(id=${Res.getRes_id()})}" class="btn btn-primary">Food Now</a>
+        <a th:href="@{/Restaurant/showAll/{id}(id=${Res.getResId()})}" class="btn btn-primary">Food Now</a>
       </div>
     </div>
 

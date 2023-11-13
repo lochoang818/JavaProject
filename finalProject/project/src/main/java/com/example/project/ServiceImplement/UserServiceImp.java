@@ -103,6 +103,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return   this.userRepo.findByEmail(email);
+    }
+
+    @Override
     public void removeSessionMessage() {
 
         HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest()

@@ -4,6 +4,7 @@ import com.example.project.Models.Category;
 import com.example.project.Models.Food;
 import com.example.project.Models.Restaurant;
 import com.example.project.ServiceImplement.RestaurantServiceImp;
+import com.example.project.Services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,15 +19,12 @@ import java.util.List;
 @RequestMapping("/Restaurant")
 public class RestaurantController {
     @Autowired
-    private RestaurantServiceImp restaurantServiceImp;
+    private RestaurantService restaurantServiceImp;
     @GetMapping("/showAll")
     public ModelAndView index(@RequestParam(value="page", defaultValue = "0") int page,@RequestParam(value="search", defaultValue = "") String search) {
         Page<Restaurant> showResult;
 
         showResult= restaurantServiceImp.searchRestaurant(search,page,3);
-
-
-
 
 
         ModelAndView modelAndView = new ModelAndView("Restaurant/Show");

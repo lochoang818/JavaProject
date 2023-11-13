@@ -11,5 +11,6 @@ public interface UserService {
     public void sendEmail(User user, String path);
 
     public boolean verifyAccount(String verificationCode);
+    public User findByEmail(String email);
 
 }

@@ -18,4 +18,6 @@ public interface RestaurantService {
     public List<Food> allFood();
 
     public List<Food> foodOfCategory(String query);
+    public Restaurant findRestaurantByRes_id(int res_id);
+
 }

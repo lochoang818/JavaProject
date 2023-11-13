@@ -10,16 +10,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> {
     public List<Restaurant> findAll();
-    @Query("SELECT c from Restaurant c WHERE c.Name LIKE CONCAT('%', :query, '%')")
+    @Query("SELECT c from Restaurant c WHERE c.name LIKE CONCAT('%', :query, '%')")
     public Page<Restaurant> searchRes(String query, Pageable p);
-    @Query("SELECT c from Category c WHERE c.restaurant.Res_id = :query")
+    @Query("SELECT c from Category c WHERE c.restaurant.resId = :query")
     public List<Category> searchCategory(String query);
     @Query("SELECT c from Food c")
     public List<Food> allFood();
-    @Query("SELECT c from Food c WHERE c.category.Cate_id = :query")
+    @Query("SELECT c from Food c WHERE c.category.cate_id= :query")
     public List<Food> foodOfCategory(String query);
+
+    public Restaurant findByResId(int resId);
 }

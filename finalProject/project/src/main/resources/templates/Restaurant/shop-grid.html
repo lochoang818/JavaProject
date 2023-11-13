@@ -118,7 +118,9 @@
                                 <div class="button-head">
 
                                     <div class="product-action-2">
-                                        <a title="Add to cart" >Add to cart</a>
+<!--                                        <a title="Add to cart" th:href="/Order/AddFoodToCart/${Res.getCategory().getRestaurant().getResId()}/${Res.getFoodId()}">Add to cart</a>-->
+                                        <a title="Add to cart" th:id=" ${Res.foodId}" th:href="@{'/Order/AddFoodToCart/' + ${Res.getCategory().getRestaurant().getResId()} + '/' + ${Res.getFoodId()}}">Add to cart</a>
+
                                     </div>
                                 </div>
                             </div>
@@ -126,6 +128,7 @@
                                 <h3><a href="product-details.html" th:text="${Res.getName()}">@f.Name</a></h3>
                                 <div class="product-price">
                                     <span th:text="${Res.getPrice()}"></span>
+                                    <span>$</span>
                                 </div>
                             </div>
                         </div>
