@@ -39,9 +39,9 @@ public class RestaurantController {
         return modelAndView;
     }
     @GetMapping("/showAll/{idRes}")
-    public ModelAndView index2(@PathVariable Long idRes){
+    public ModelAndView index2(@PathVariable int idRes){
         List<Category> showResultCategory = restaurantServiceImp.searchCategory(String.valueOf(idRes));
-        List<Food> showResultAllFood = restaurantServiceImp.allFood();
+        List<Food> showResultAllFood = restaurantServiceImp.allFood(idRes);
 
         ModelAndView modelAndView = new ModelAndView("Restaurant/shop-grid");
         modelAndView.addObject("listCategory", showResultCategory);

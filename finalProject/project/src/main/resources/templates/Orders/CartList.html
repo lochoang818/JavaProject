@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+      layout:decorate="layout/index">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body layout:fragment="body">
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="blog-single.html">Order List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+<!--        <div class="col-12 card mt-4" th:each="res: ${cartlist}">-->
+<!--            -->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">Address <span th:text="${res.getAddress()()}"></span></h5>-->
+<!--                <p class="card-text">Shopping</p>-->
+<!--                <p class="card-text">Total bill </p>-->
+
+<!--                <a   class="btn btn-primary">View Cart</a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <div class="col-12 card mt-4 mb-4" th:each="res: ${cartlist}">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img th:src="${res.getLogoUrl()}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <h5 class="card-header">You're shopping at <span th:text="${res.getName()}"></span></h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Address <span th:text="${res.getAddress()}"></span></h5>
+                        <p class="card-text">Shopping</p>
+                        <p class="card-text">Total bill </p>
+
+                        <a  th:href="@{'/Order/ShowCart/' + ${res.getResId()}}" class="btn btn-primary">View Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

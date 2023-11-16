@@ -1,10 +1,7 @@
 package com.example.project.Repository;
 
 import com.example.project.DTO.FoodOrderDTO;
-import com.example.project.Models.Food;
-import com.example.project.Models.FoodOrder;
-import com.example.project.Models.FoodOrderKey;
-import com.example.project.Models.Orders;
+import com.example.project.Models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +22,6 @@ public interface FoodOrderRepository extends JpaRepository<FoodOrder, FoodOrderK
     @Query("select  sum(f.price) from  FoodOrder  f where  f.order.order_id like :orderId and f.food.category.restaurant.resId = :resId")
     Double totalPriceCart( String orderId, int resId);
 
-
+    @Query("select distinct f.food.category.restaurant from FoodOrder f where f.order.user.email like :email")
+    List<Restaurant> CartList(String email);
 }

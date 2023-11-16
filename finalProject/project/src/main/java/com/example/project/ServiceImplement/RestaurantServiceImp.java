@@ -44,7 +44,7 @@ public class RestaurantServiceImp implements RestaurantService {
     }
 
     @Override
-    public List<Food> allFood() { return restaurantRepository.allFood(); }
+    public List<Food> allFood(int resId) { return restaurantRepository.allFood(resId); }
     @Override
     public List<Food> foodOfCategory(String query) {
         return restaurantRepository.foodOfCategory(query);

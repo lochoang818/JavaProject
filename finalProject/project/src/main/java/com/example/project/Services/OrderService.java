@@ -14,5 +14,5 @@ public interface OrderService {
 
     public void insertCart(String email, int resId);
     public Optional<Orders> findOrdering(String email, int restaurantId);
-
+    public List<Restaurant> CartList(String email);
 }

@@ -15,7 +15,7 @@ public interface RestaurantService {
     public Page<Restaurant> getAllRestByPage(int page, int pageSize);
     public List<Category> searchCategory(String query);
 
-    public List<Food> allFood();
+    public List<Food> allFood(int resId);
 
     public List<Food> foodOfCategory(String query);
     public Restaurant findRestaurantByRes_id(int res_id);

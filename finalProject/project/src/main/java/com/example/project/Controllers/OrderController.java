@@ -37,7 +37,7 @@ public class OrderController {
         try {
 
 
-            List<FoodOrderDTO> o = this.orderService.foodCartList(email,ResId);
+            List<Restaurant> o = this.orderService.CartList(email);
             return (ResponseEntity) ResponseEntity.ok(o);
 
 
@@ -45,7 +45,21 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
     }
+    @GetMapping("/ShowCart/{idRes}")
+    public ModelAndView AddFoodToCart(@PathVariable(name = "idRes") Integer ResId){
+        ModelAndView modelAndView = new ModelAndView("Orders/Cart");
+        String email = "lochoang611@gmail.com";
 
+
+        List<FoodOrderDTO> lstFood = this.orderService.foodCartList(email,ResId);
+        modelAndView.addObject("ResId", ResId);
+
+        modelAndView.addObject("listFood", lstFood);
+        Double totalPrice = this.orderService.totalPriceCart(email,ResId);
+        modelAndView.addObject("TotalPrice", totalPrice);
+
+        return modelAndView;
+    }
 
 
     @GetMapping("/AddFoodToCart/{idRes}/{idFood}")
@@ -67,6 +81,17 @@ public class OrderController {
         modelAndView.addObject("listFood", lstFood);
         Double totalPrice = this.orderService.totalPriceCart(email,ResId);
         modelAndView.addObject("TotalPrice", totalPrice);
+
+        return modelAndView;
+    }
+    @GetMapping("/CartList")
+    public ModelAndView CartList(){
+        String email = "lochoang611@gmail.com";
+
+        ModelAndView modelAndView = new ModelAndView("Orders/CartList");
+
+        List<Restaurant> r = this.orderService.CartList(email);
+        modelAndView.addObject("cartlist",r);
 
         return modelAndView;
     }

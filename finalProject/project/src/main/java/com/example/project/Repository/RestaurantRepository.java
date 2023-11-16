@@ -19,8 +19,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     public Page<Restaurant> searchRes(String query, Pageable p);
     @Query("SELECT c from Category c WHERE c.restaurant.resId = :query")
     public List<Category> searchCategory(String query);
-    @Query("SELECT c from Food c")
-    public List<Food> allFood();
+    @Query("SELECT c from Food c where c.category.restaurant.resId = :resId ")
+    public List<Food> allFood(int resId);
     @Query("SELECT c from Food c WHERE c.category.cate_id= :query")
     public List<Food> foodOfCategory(String query);
 

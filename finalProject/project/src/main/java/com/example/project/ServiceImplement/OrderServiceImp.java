@@ -88,5 +88,8 @@ public class OrderServiceImp implements OrderService {
     public Optional<Orders> findOrdering(String email, int restaurantId){
         return this.orderRepository.findOrdering(email,"Ordering",restaurantId);
     }
+    public List<Restaurant> CartList(String email){
+        return this.foodOrderRepository.CartList(email);
+    }
 
 }
