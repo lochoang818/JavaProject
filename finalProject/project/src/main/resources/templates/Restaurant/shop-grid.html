@@ -7,152 +7,182 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script type="text/javascript">
+        function redirectToSelectedOption() {
+            var selectedOption = document.getElementById("sortOptions").value;
+            var idRes = document.getElementById("sortOptions").dataset.idres;
+            var category = document.getElementById("sortOptions").dataset.category;
+            if(category == undefined) {
+                category = ""
+            }
+            var redirectUrl = '/Restaurant/show/' + idRes + '?category=' + category + '&search=&sortBy=' + selectedOption;
+            window.location.href = redirectUrl;
+        }
+    </script>
+
 </head>
 <body  >
 <div layout:fragment="body">
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="bread-inner">
-                    <ul class="bread-list">
-                        <li><a >Home<i class="ti-arrow-right"></i></a></li>
-                        <li class="active"><a href="blog-single.html">Shop Grid</a></li>
-                    </ul>
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bread-inner">
+                        <ul class="bread-list">
+                            <li><a >Home<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
-<section class="product-area shop-sidebar shop section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-12">
-                <div class="shop-sidebar">
-                    <!-- Single Widget -->
-                    <div class="single-widget category">
-                        <h3 class="title">Categories</h3>
-                        <ul class="categor-list">
-                            <li><a href="#">All</a></li>
+
+    <section class="product-area shop-sidebar shop section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="shop-sidebar">
+                        <!-- Single Widget -->
+                        <div class="single-widget category">
+                            <h3 class="title">Categories</h3>
+                            <ul class="categor-list">
+                                <li><a href="#" th:href="@{/Restaurant/show/{idRes}(idRes=${idRes})}">All</a></li>
+
+                            </ul>
+                            <ul class="categor-list" th:each="category : ${listCategory}">
+                                <li>
+                                    <a
+                                            th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search='}"
+                                            th:text="${category}"></a>
+                                </li>
+                            </ul>
 
 
-                            <li><a href="#" th:each="Res: ${listCategory}"  th:text="${Res.name}"></a></li>
-
-
-                        </ul>
-                    </div>
-                    <!--/ End Single Widget -->
-                    <!-- Shop By Price -->
-                    <div class="single-widget range">
-                        <h3 class="title">Shop by Price</h3>
-                        <div class="price-filter">
-                            <div class="price-filter-inner">
-                                <div id="slider-range"></div>
-                                <div class="price_slider_amount">
-                                    <div class="label-input">
-                                        <span>Range:</span><input type="text" id="amount" name="price"
-                                                                  placeholder="Add Your Price" />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <ul class="check-box-list">
-                            <li>
-                                <a href="#">$100 - $250</a>
-                            </li>
-                            <li>
-                                <a href="#">$100 - $250</a>
-                            </li>
-                            <li>
-                                <a href="#">$100 - $250</a>
-                            </li>
-                            <li>
-                                <a href="#">$100 - $250</a>
-                            </li>
-                        </ul>
-
-
+                        <!--/ End Single Widget -->
+                        <!-- Shop By Price -->
+                        <div class="single-widget range">
+                            <h3 class="title">Shop by Price</h3>
+                            <ul class="check-box-list">
+                                <li>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=100&down=0'}">$0 - $100</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=200&down=100'}">$100 - $200</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=300&down=200'}">$200 - $300</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=400&down=300'}">$300 - $400</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=500&down=400'}">$400 - $500</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=-1&down=500'}">$500 +</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/ End Shop By Price -->
+                        <!-- Single Widget -->
+                        <!--/ End Single Widget -->
                     </div>
-                    <!--/ End Shop By Price -->
-                    <!-- Single Widget -->
-
-
-                    <!--/ End Single Widget -->
                 </div>
-            </div>
-            <div class="col-lg-9 col-md-8 col-12">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Shop Top -->
-                        <div class="shop-top">
-                            <div class="shop-shorter">
-
-                                <div class="single-shorter">
-                                    <label>Sort By :</label>
-
-                                    <select id="sortOptions">
-                                        <option value="NameASC" >Name ASC</option>
-                                        <option value="NameDESC" >Name DESC</option>
-                                        <option value="PriceASC" >Price ASC</option>
-                                        <option value="PriceDESC" >Price DESC</option>
+                <div class="col-lg-9 col-md-8 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Shop Top -->
+                            <div class="shop-top">
+                                <div class="shop-shorter">
+                                    <div class="single-shorter">
+                                        <label>Sort By:</label>
+                                        <select id="sortOptions" onchange="redirectToSelectedOption()" th:data-idRes="${idRes}" th:data-category="${category}">
+                                            <option value="NameASC">Name ASC</option>
+                                            <option value="NameDESC">Name DESC</option>
+                                            <option value="PriceASC">Price ASC</option>
+                                            <option value="PriceDESC">Price DESC</option>
                                         </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!--/ End Shop Top -->
-                    </div>
-                </div>
-                <div class="row" id="food-container">
-
-                    <div class="col-lg-4 col-md-6 col-12"  th:each="Res: ${listAllFood}">
-                        <div class="single-product">
-                            <div class="product-img">
-                                <a href="product-details.html">
-                                    <img class="default-img" th:src="${Res.getImage()}" alt="#">
-                                    <img class="hover-img" th:src="${Res.getImage()}" alt="#">
-                                </a>
-                                <div class="button-head">
-
-                                    <div class="product-action-2">
-<!--                                        <a title="Add to cart" th:href="/Order/AddFoodToCart/${Res.getCategory().getRestaurant().getResId()}/${Res.getFoodId()}">Add to cart</a>-->
-                                        <a title="Add to cart" th:id=" ${Res.foodId}" th:href="@{'/Order/AddFoodToCart/' + ${Res.getCategory().getRestaurant().getResId()} + '/' + ${Res.getFoodId()}}">Add to cart</a>
 
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="product-content">
-                                <h3><a href="product-details.html" th:text="${Res.getName()}">@f.Name</a></h3>
-                                <div class="product-price">
-                                    <span th:text="${Res.getPrice()}"></span>
-                                    <span>$</span>
+                            <div class="search-area">
+                                <form action="#" method="get" style="display: block">
+                                    <input type="search" name="search" id="headerSearch" placeholder="Type for search">
+                                    <button type="submit" style="width: 10%; height: 31.6px"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+                            <!--/ End Shop Top -->
+                        </div>
+                    </div>
+                    <div class="row" id="food-container">
+
+                        <div class="col-lg-4 col-md-6 col-12"  th:each="Res: ${listFood}">
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <a href="product-details.html">
+                                        <img class="default-img" th:src="${Res.getImage()}" alt="#">
+                                        <img class="hover-img" th:src="${Res.getImage()}" alt="#">
+                                    </a>
+                                    <div class="button-head">
+
+                                        <div class="product-action-2">
+                                            <!--                                        <a title="Add to cart" th:href="/Order/AddFoodToCart/${Res.getCategory().getRestaurant().getResId()}/${Res.getFoodId()}">Add to cart</a>-->
+                                            <a title="Add to cart" th:id=" ${Res.foodId}" th:href="@{'/Order/AddFoodToCart/' + ${Res.getCategory().getRestaurant().getResId()} + '/' + ${Res.getFoodId()}}">Add to cart</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h3><a href="product-details.html" th:text="${Res.getName()}">@f.Name</a></h3>
+                                    <div class="product-price">
+                                        <span th:text="${Res.getPrice()}"></span>
+                                        <span>$</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
 
+                    <br />
+
+                    <div class="container mt-3 mb-5">
 
 
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:if="${currentPage != 0}" class="page-item">
+                                    <a class="page-link" th:href="@{'?page=' + ${currentPage - 1} + '&search=' + ${search} + '&category='+ ${category}}">Previous</a>
+                                </li>
 
+                                <li th:each="i : ${#numbers.sequence(1, totalPage)}"
+                                    th:classappend="${currentPage == i - 1} ? 'active' : ''" class="page-item">
+                                    <a class="page-link" th:href="@{'?page=' + ${i - 1} + '&search=' + ${search}+ '&category='+ ${category}}">[[${i}]]</a>
+                                </li>
 
-
-
-
-
+                                <li th:if="${currentPage + 1 != totalPage}" class="page-item">
+                                    <a class="page-link" th:href="@{'?page=' + ${currentPage + 1} + '&search=' + ${search}+ '&category='+ ${category}}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-                <br />
 
 
             </div>
-
-
         </div>
-    </div>
-</section>
+    </section>
 </div>
+
 </body>
 
 </html>

@@ -69,6 +69,7 @@ public class HomeController {
             if (u != null) {
                 System.out.println("Registration successful");
                 session.setAttribute("msg2", "Register successfully! Please check your email to verify account");
+                
                 return "redirect:/signin";
             } else {
                 System.out.println("Error in server");

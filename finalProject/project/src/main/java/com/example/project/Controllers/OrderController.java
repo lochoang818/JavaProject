@@ -13,13 +13,16 @@ import com.example.project.ServiceImplement.OrderServiceImp;
 import com.example.project.ServiceImplement.RestaurantServiceImp;
 import com.example.project.ServiceImplement.UserServiceImp;
 import com.example.project.Services.OrderService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +35,17 @@ public class OrderController {
 
     @Autowired
     private FoodRepository foodRepository;
+
+    @Autowired
+    private UserRepository userRepo;
+    @ModelAttribute
+    public void commonUser(Principal p, Model m) {
+        if (p != null) {
+            String email = p.getName();
+            User user = userRepo.findByEmail(email);
+            m.addAttribute("user", user);
+        }
+    }
     @GetMapping("/getOrder")
     public ResponseEntity getOrder(@RequestParam("ResId") int ResId, @RequestParam("email") String email,@RequestParam("foodId") int foodId) {
         try {
@@ -46,53 +60,74 @@ public class OrderController {
         }
     }
     @GetMapping("/ShowCart/{idRes}")
-    public ModelAndView AddFoodToCart(@PathVariable(name = "idRes") Integer ResId){
-        ModelAndView modelAndView = new ModelAndView("Orders/Cart");
-        String email = "lochoang611@gmail.com";
+    public ModelAndView ShowCart(@PathVariable(name = "idRes") Integer ResId, HttpSession session) {
+        ModelAndView modelAndView;
 
+        String email = (String) session.getAttribute("email");
 
-        List<FoodOrderDTO> lstFood = this.orderService.foodCartList(email,ResId);
-        modelAndView.addObject("ResId", ResId);
-
-        modelAndView.addObject("listFood", lstFood);
-        Double totalPrice = this.orderService.totalPriceCart(email,ResId);
-        modelAndView.addObject("TotalPrice", totalPrice);
+        if (email == null) {
+            modelAndView = new ModelAndView("redirect:/signin");
+        } else {
+            modelAndView = new ModelAndView("Orders/Cart");
+            System.out.println(email);
+            List<FoodOrderDTO> lstFood = this.orderService.foodCartList(email, ResId);
+            modelAndView.addObject("ResId", ResId);
+            modelAndView.addObject("listFood", lstFood);
+            Double totalPrice = this.orderService.totalPriceCart(email, ResId);
+            modelAndView.addObject("TotalPrice", totalPrice);
+        }
 
         return modelAndView;
     }
+
 
 
     @GetMapping("/AddFoodToCart/{idRes}/{idFood}")
-    public ModelAndView AddFoodToCart(@PathVariable(name = "idRes") Integer ResId, @PathVariable(name = "idFood") Integer foodId ){
-        ModelAndView modelAndView = new ModelAndView("Orders/Cart");
-        String email = "lochoang611@gmail.com";
+    public ModelAndView AddFoodToCart(@PathVariable(name = "idRes") Integer ResId, @PathVariable(name = "idFood") Integer foodId , HttpSession session){
+        ModelAndView modelAndView;
 
-        orderService.insertCart(email,ResId);
+        String email = (String) session.getAttribute("email");
 
-            Optional<Orders> o = this.orderService.findOrdering(email,ResId);
+        if (email == null) {
+            modelAndView = new ModelAndView("redirect:/signin");
+        } else {
+            modelAndView = new ModelAndView("Orders/Cart");
+            System.out.println(email);
+            orderService.insertCart(email, ResId);
+
+            Optional<Orders> o = this.orderService.findOrdering(email, ResId);
             if(o.isPresent()){
                 Food f = this.foodRepository.findByfoodId(foodId);
-                this.orderService.AddFoodToCart(f,o.get());
-
+                this.orderService.AddFoodToCart(f, o.get());
             }
-        List<FoodOrderDTO> lstFood = this.orderService.foodCartList(email,ResId);
-        modelAndView.addObject("ResId", ResId);
 
-        modelAndView.addObject("listFood", lstFood);
-        Double totalPrice = this.orderService.totalPriceCart(email,ResId);
-        modelAndView.addObject("TotalPrice", totalPrice);
+            List<FoodOrderDTO> lstFood = this.orderService.foodCartList(email, ResId);
+            modelAndView.addObject("ResId", ResId);
+            modelAndView.addObject("listFood", lstFood);
+            Double totalPrice = this.orderService.totalPriceCart(email, ResId);
+            modelAndView.addObject("TotalPrice", totalPrice);
+        }
 
         return modelAndView;
     }
+
     @GetMapping("/CartList")
-    public ModelAndView CartList(){
-        String email = "lochoang611@gmail.com";
+    public ModelAndView CartList(HttpSession session) {
+        ModelAndView modelAndView;
 
-        ModelAndView modelAndView = new ModelAndView("Orders/CartList");
+        String email = (String) session.getAttribute("email");
 
-        List<Restaurant> r = this.orderService.CartList(email);
-        modelAndView.addObject("cartlist",r);
+        if (email == null) {
+            modelAndView = new ModelAndView("redirect:/signin");
+        } else {
+            System.out.println(email);
+            modelAndView = new ModelAndView("Orders/CartList");
+
+            List<Restaurant> r = this.orderService.CartList(email);
+            modelAndView.addObject("cartlist", r);
+        }
 
         return modelAndView;
     }
+
 }

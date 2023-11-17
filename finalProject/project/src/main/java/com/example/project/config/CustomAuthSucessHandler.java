@@ -3,6 +3,7 @@ package com.example.project.config;
 import java.io.IOException;
 import java.util.Set;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -24,6 +25,8 @@ public class CustomAuthSucessHandler implements AuthenticationSuccessHandler {
         if (roles.contains("ROLE_ADMIN")) {
             response.sendRedirect("/");
         } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("email", authentication.getName());
             response.sendRedirect("/");
         }
     }

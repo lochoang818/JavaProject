@@ -5,8 +5,8 @@
       xmlns:sec="http://www.thymeleaf.org"
       layout:decorate="layout/index">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body  layout:fragment="body">
 
@@ -42,8 +42,8 @@
               <a th:href="@{/Restaurant/showAll(search='')}" class="btn btn-primary">All</a>
 
 
-                <input name="search" id="SearchResByName"  placeholder="Search Products Here....." type="search">
-                <button class="btnSearch" id="searchRes"><i class="ti-search"></i></button>
+              <input name="search" id="SearchResByName"  placeholder="Search Products Here....." type="search">
+              <button class="btnSearch" id="searchRes"><i class="ti-search"></i></button>
 
             </div>
           </div>
@@ -66,7 +66,7 @@
       <div class="card-body">
         <h5 th:text="${Res.name}" class="card-title">Card title</h5>
         <p  th:text="${Res.address}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a th:href="@{/Restaurant/showAll/{id}(id=${Res.getResId()})}" class="btn btn-primary">Food Now</a>
+        <a th:href="@{/Restaurant/show/{id}(id=${Res.getResId()})}" class="btn btn-primary">Food Now</a>
       </div>
     </div>
 

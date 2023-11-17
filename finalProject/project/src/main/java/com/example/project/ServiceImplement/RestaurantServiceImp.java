@@ -54,4 +54,9 @@ public class RestaurantServiceImp implements RestaurantService {
     public Restaurant findRestaurantByRes_id(int res_id) {
         return restaurantRepository.findByResId(res_id);
     }
+
+    @Override
+    public List<String> getCategory(Long ResId) {
+        return restaurantRepository.getCategory(ResId);
+    }
 }

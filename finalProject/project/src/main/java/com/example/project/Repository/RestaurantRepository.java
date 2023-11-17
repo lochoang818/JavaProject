@@ -25,4 +25,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> 
     public List<Food> foodOfCategory(String query);
 
     public Restaurant findByResId(int resId);
+
+    @Query("SELECT c.Name from Category c WHERE c.restaurant.resId =:resId")
+    public List<String> getCategory(Long resId);
 }

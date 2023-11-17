@@ -32,11 +32,11 @@ function checkConfirm() {
                 $(this).css({ backgroundColor: "red" });
             }
         );
-        signup.disabled = false;
+        //signup.disabled = false;
     } else {
         signup.style.backgroundColor = "#7e7e7e";
-        signup.style.pointerEvents = "none";
-        signup.disabled = true;
+        //signup.style.pointerEvents = "none";
+        //signup.disabled = true;
     }
 }
 
@@ -158,10 +158,10 @@ function checkConfirm2() {
                 $(this).css({ backgroundColor: "red" });
             }
         );
-        signup.disabled = false;
+        //signup.disabled = false;
     } else {
         signup.style.backgroundColor = "#7e7e7e";
-        signup.style.pointerEvents = "none";
-        signup.disabled = true;
+        //signup.style.pointerEvents = "none";
+        //signup.disabled = true;
     }
 }
