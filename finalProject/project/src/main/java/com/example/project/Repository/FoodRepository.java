@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 public interface FoodRepository extends JpaRepository<Food,Integer> {
     public Food findByfoodId(int foodId);
 
-    @Query("SELECT c FROM Food c JOIN c.category cat WHERE c.restaurant.resId =:resId AND cat.Name LIKE :cat AND (c.price <= :up AND c.price >= :down) " +
+    @Query("SELECT c FROM Food c JOIN c.category cat WHERE c.category.restaurant.resId =:resId AND cat.Name LIKE :cat AND (c.price <= :up AND c.price >= :down) " +
             "OR c.name LIKE :query AND (c.price <= :up AND c.price >= :down) ORDER BY " +
             "CASE WHEN :sortBy = 'NameASC' THEN c.name END ASC, " +
             "CASE WHEN :sortBy = 'NameDESC' THEN c.name END DESC, " +

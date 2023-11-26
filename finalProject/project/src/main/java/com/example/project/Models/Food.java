@@ -28,9 +28,7 @@ public class Food {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "res_id")
-    private Restaurant restaurant;
+
 
 
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
