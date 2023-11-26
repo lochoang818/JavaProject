@@ -36,6 +36,10 @@ public class CustomUser implements UserDetails {
         return user.getEmail();
     }
 
+    public void setUserName(String username) {
+        this.user.setName(username);
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

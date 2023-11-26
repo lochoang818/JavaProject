@@ -41,7 +41,7 @@
                             <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
                             <li><i class="ti-user"></i>
                                 <span th:if="${user != null}">
-                                    <a th:text="${user.name}"></a>
+                                    <a th:text="${user.name}" th:href="@{users/profile}"></a>
                                 </span>
                                 <span th:unless="${user != null}">
                                     <a th:href="@{/register}">Khách</a>
@@ -88,7 +88,7 @@
                             <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                         </div>
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon">
+                            <a  class="single-icon">
                                 <i class="fa fa-user-circle-o"
                                    aria-hidden="true"></i>
                             </a>
