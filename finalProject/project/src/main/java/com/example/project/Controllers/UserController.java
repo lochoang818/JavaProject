@@ -44,7 +44,10 @@ public class UserController {
     }
 
     @GetMapping("/change-password")
-    public String loadChangePassword() {
+    public String loadChangePassword(@AuthenticationPrincipal CustomUser loggedUser, Model model) {
+        String email = loggedUser.getUsername();
+        User user = userService.getByEmail(email);
+        model.addAttribute("user", user);
         return "User/changepassword";
     }
 

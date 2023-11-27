@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -38,6 +40,7 @@ public class OrderController {
 
     @Autowired
     private UserRepository userRepo;
+
     @ModelAttribute
     public void commonUser(Principal p, Model m) {
         if (p != null) {
@@ -46,8 +49,9 @@ public class OrderController {
             m.addAttribute("user", user);
         }
     }
+
     @GetMapping("/getOrder")
-    public ResponseEntity getOrder(@RequestParam("ResId") int ResId, @RequestParam("email") String email,@RequestParam("foodId") int foodId) {
+    public ResponseEntity getOrder(@RequestParam("ResId") int ResId, @RequestParam("email") String email, @RequestParam("foodId") int foodId) {
         try {
 
 
@@ -59,6 +63,7 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
     }
+
     @GetMapping("/ShowCart/{idRes}")
     public ModelAndView ShowCart(@PathVariable(name = "idRes") Integer ResId, HttpSession session) {
         ModelAndView modelAndView;
@@ -80,10 +85,8 @@ public class OrderController {
         return modelAndView;
     }
 
-
-
     @GetMapping("/AddFoodToCart/{idRes}/{idFood}")
-    public ModelAndView AddFoodToCart(@PathVariable(name = "idRes") Integer ResId, @PathVariable(name = "idFood") Integer foodId , HttpSession session){
+    public ModelAndView AddFoodToCart(@PathVariable(name = "idRes") Integer ResId, @PathVariable(name = "idFood") Integer foodId, HttpSession session) {
         ModelAndView modelAndView;
 
         String email = (String) session.getAttribute("email");
@@ -96,7 +99,7 @@ public class OrderController {
             orderService.insertCart(email, ResId);
 
             Optional<Orders> o = this.orderService.findOrdering(email, ResId);
-            if(o.isPresent()){
+            if (o.isPresent()) {
                 Food f = this.foodRepository.findByfoodId(foodId);
                 this.orderService.AddFoodToCart(f, o.get());
             }
@@ -117,6 +120,7 @@ public class OrderController {
 
         String email = (String) session.getAttribute("email");
 
+
         if (email == null) {
             modelAndView = new ModelAndView("redirect:/signin");
         } else {
@@ -130,4 +134,35 @@ public class OrderController {
         return modelAndView;
     }
 
+    @PostMapping("/updateQuantity/{foodId}/{newQuantity}")
+    public ResponseEntity<String> updateQuantity(@PathVariable int foodId, @PathVariable int newQuantity, @RequestParam double price, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+
+
+        if (email != null) {
+            // Update quantity in the database
+            double priceNew = price * newQuantity;
+            orderService.updateQuantity(newQuantity, foodId, priceNew);
+            return ResponseEntity.ok("Quantity updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+        }
+    }
+
+    @PostMapping("/deleteCartItem/{foodId}")
+    public ResponseEntity<String> deleteCartItem(@PathVariable int foodId, HttpSession session) {
+        // Get the email from the session or any other way you authenticate users
+        String email = (String) session.getAttribute("email");
+        if (email != null) {
+            try {
+                orderService.deleteCart(foodId);
+                return ResponseEntity.ok("Item deleted successfully");
+
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting item");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+        }
+    }
 }
