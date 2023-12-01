@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/userLogin")
                                 .successHandler(sucessHandler)
                                 .permitAll())
+
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/signin?logout");

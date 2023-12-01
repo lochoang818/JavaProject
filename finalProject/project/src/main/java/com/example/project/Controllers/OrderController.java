@@ -92,7 +92,6 @@ public class OrderController {
             modelAndView = new ModelAndView("redirect:/signin");
         } else {
             modelAndView = new ModelAndView("Orders/Cart");
-            System.out.println(email);
             orderService.insertCart(email, ResId);
 
             Optional<Orders> o = this.orderService.findOrdering(email, ResId);
