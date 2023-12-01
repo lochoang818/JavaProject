@@ -3282,11 +3282,10 @@ Version:1.0
 	position:relative;
 	font-size: 15px;
 	font-weight: 600;
-	padding: 10px 30px;
 	line-height: 24px;
 	text-transform: uppercase;
 	color: #333;
-	padding-bottom: 5px;
+	padding: 10px 30px 5px;
 }
 .shop.checkout .single-widget h2:before{
 	position:absolute;
@@ -3302,7 +3301,7 @@ Version:1.0
 }
 .shop.checkout .single-widget .content ul li {
 	display: block;
-	padding: 0px 30px;
+	padding: 0 30px;
 	font-size: 15px;
 	font-weight: 400;
 	color: #333;

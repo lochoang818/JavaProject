@@ -50,6 +50,11 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/checkout")
+    public ModelAndView checkout(HttpSession session) {
+        return new ModelAndView("Orders/checkout");
+    }
+
     @GetMapping("/getOrder")
     public ResponseEntity getOrder(@RequestParam("ResId") int ResId, @RequestParam("email") String email, @RequestParam("foodId") int foodId) {
         try {
