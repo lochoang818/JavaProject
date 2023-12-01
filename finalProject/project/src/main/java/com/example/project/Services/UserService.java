@@ -13,4 +13,11 @@ public interface UserService {
     public boolean verifyAccount(String verificationCode);
     public User findByEmail(String email);
 
+    public User getByEmail(String email);
+
+    public void updateUser(User user);
+
+    public void changePassword(User user, String newPass);
+
+    public boolean oldPasswordIsValid(User user, String oldPass);
 }

@@ -116,4 +116,20 @@ public class UserServiceImp implements UserService {
         session.removeAttribute("msg");
     }
 
+    public User getByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    public void updateUser(User user) {
+        userRepo.save(user);
+    }
+
+    public void changePassword(User user, String newPass) {
+        user.setPassword(passwordEncoder.encode(newPass));
+        userRepo.save(user);
+    }
+
+    public boolean oldPasswordIsValid(User user, String oldPass) {
+        return passwordEncoder.matches(oldPass, user.getPassword());
+    }
 }

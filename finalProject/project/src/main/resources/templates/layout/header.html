@@ -41,7 +41,7 @@
                             <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
                             <li><i class="ti-user"></i>
                                 <span th:if="${user != null}">
-                                    <a th:text="${user.name}"></a>
+                                    <a th:text="${user.name}" href="/users/profile"></a>
                                 </span>
                                 <span th:unless="${user != null}">
                                     <a th:href="@{/register}">Khách</a>
@@ -71,7 +71,7 @@
                 <div class="col-lg-2 col-md-2 col-12">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="/images/logo.png" alt="logo"></a>
+                        <a href="/"><img src="/images/logo.png" alt="logo"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -88,7 +88,7 @@
                             <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                         </div>
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon">
+                            <a  class="single-icon">
                                 <i class="fa fa-user-circle-o"
                                    aria-hidden="true"></i>
                             </a>
@@ -122,8 +122,8 @@
                                 <div class="navbar-collapse">
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
-                                            <li class="active"><a href="#">Home</a></li>
-                                            <li><a href="#">Restaurant</a></li>
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/Restaurant/showAll">Restaurant</a></li>
                                             <li><a href="#">Order</a></li>
 
                                             <li><a href="">Contact Us</a></li>
