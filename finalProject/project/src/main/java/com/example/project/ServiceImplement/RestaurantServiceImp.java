@@ -16,6 +16,8 @@ import java.util.List;
 
 @Service
 public class RestaurantServiceImp implements RestaurantService {
+
+    @Autowired
     private RestaurantRepository restaurantRepository;
     @Autowired
     public RestaurantServiceImp(RestaurantRepository restaurantRepository){
@@ -25,6 +27,25 @@ public class RestaurantServiceImp implements RestaurantService {
     @Override
     public List<Restaurant> findAll() {
         return restaurantRepository.findAll();
+    }
+
+    @Override
+    public void addRestaurant(Restaurant restaurant) {
+        restaurantRepository.save(restaurant);
+    }
+
+    @Override
+    public void updateRestaurant(Restaurant restaurant) {
+        Restaurant existRes = restaurantRepository.findByResId(restaurant.getResId());
+        existRes.setName(restaurant.getName());
+        existRes.setAddress(restaurant.getAddress());
+        existRes.setLogoUrl(restaurant.getLogoUrl());
+        restaurantRepository.save(existRes);
+    }
+
+    @Override
+    public void deleteRestaurant(int resId) {
+        restaurantRepository.deleteById(resId);
     }
 
     @Override
