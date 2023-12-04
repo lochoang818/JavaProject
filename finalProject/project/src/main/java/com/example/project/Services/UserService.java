@@ -2,9 +2,13 @@ package com.example.project.Services;
 
 import com.example.project.Models.User;
 
+import java.util.List;
+
 public interface UserService {
 
     public User saveUser(User user, String url);
+
+    public List<User> findAll();
 
     public void removeSessionMessage();
 

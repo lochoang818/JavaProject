@@ -1,5 +1,6 @@
 package com.example.project.ServiceImplement;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -46,6 +47,11 @@ public class UserServiceImp implements UserService {
         }
 
         return newuser;
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
 
     @Override

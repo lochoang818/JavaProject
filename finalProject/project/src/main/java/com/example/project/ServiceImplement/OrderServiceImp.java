@@ -109,5 +109,37 @@ public class OrderServiceImp implements OrderService {
         foodOrderRepository.deleteCart(foodId);
     }
 
+    @Override
+    public List<Orders> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public void addOrder(Orders orders) {
+        orderRepository.save(orders);
+    }
+
+    @Override
+    public void updateOrder(Orders orders) {
+        Optional<Orders> existing = orderRepository.findByOrder_id(orders.getOrder_id());
+        if (existing.isPresent()) {
+            Orders o = existing.get();
+            o.setStatus(orders.getStatus());
+            orderRepository.save(o);
+        } else {
+            System.out.println("Order with ID " + orders.getOrder_id() + " not found.");
+        }
+    }
+
+    @Override
+    public void deleteOrder(String order_id) {
+        Optional<Orders> existing = orderRepository.findByOrder_id(order_id);
+        if (existing.isPresent()) {
+            orderRepository.delete(existing.get());
+        } else {
+            System.out.println("Order with ID " + order_id + " not found.");
+        }
+    }
+
 
 }

@@ -20,4 +20,9 @@ public interface OrderService {
     public void updateQuantity(int newQuantity, int foodId, double price);
     public void deleteCart(int foodId);
 
+    public List<Orders> findAll();
+    public void addOrder(Orders orders);
+    public void updateOrder(Orders orders);
+    public void deleteOrder(String order_id);
+
 }

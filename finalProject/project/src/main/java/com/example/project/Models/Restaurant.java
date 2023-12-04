@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property ="resId")
-
 public class Restaurant {
     @Id
     @GeneratedValue
@@ -23,14 +22,14 @@ public class Restaurant {
     String name;
     String logoUrl;
     String address;
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Category> categories;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<Category> categories;
 
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Orders> orders;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<Orders> orders;
 
 }
