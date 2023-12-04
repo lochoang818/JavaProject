@@ -1,7 +1,9 @@
 package com.example.project.Controllers;
 
+import com.example.project.Models.Restaurant;
 import com.example.project.Models.User;
 import com.example.project.Repository.UserRepository;
+import com.example.project.ServiceImplement.RestaurantServiceImp;
 import com.example.project.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -23,6 +26,9 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private RestaurantServiceImp restaurantServiceImp;
+
     @ModelAttribute
     public void commonUser(Principal p, Model m) {
         if (p != null) {
@@ -31,8 +37,14 @@ public class HomeController {
             m.addAttribute("user", user);
         }
     }
+
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        List<Restaurant> lst = restaurantServiceImp.findAll();
+        int limit = 4;
+        List<Restaurant> limitedList = lst.subList(0, Math.min(lst.size(), limit));
+
+        model.addAttribute("lstRes", limitedList);
         return "Home/homePage";
     }
 
@@ -69,7 +81,7 @@ public class HomeController {
             if (u != null) {
                 System.out.println("Registration successful");
                 session.setAttribute("msg2", "Register successfully! Please check your email to verify account");
-                
+
                 return "redirect:/signin";
             } else {
                 System.out.println("Error in server");
