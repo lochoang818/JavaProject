@@ -427,6 +427,99 @@
     }
     deleteItem();
 
+    function deleteCategory(){
+        $('.delete-category').on('click', function () {
+            var row = $(this).closest('tr'); // Get the clicked row
+            var id = row.find('td:eq(1)').text(); // Index 0 corresponds to the 'id' column (first column
+            var name = row.find('td:eq(2)').text(); // Index 4 corresponds to the 'name' column
+            // Set the values in the delete modal
+            // $('#categoryDeleteId').val(id);
+            $('#deleteEmployeeModal input[name="cate_id"]').val(id);
+            $('#categoryNameParagraph').text("Are you sure you want to delete " + name + "?");
+        });
+    }
+
+    deleteCategory();
+
+    function deleteFood(){
+        $('.delete-food').on('click', function () {
+            var row = $(this).closest('tr'); // Get the clicked row
+            var id = row.find('td:eq(1)').text(); // Index 0 corresponds to the 'id' column (first column
+            var name = row.find('td:eq(3)').text(); // Index 4 corresponds to the 'name' column
+            // Set the values in the delete modal
+            $('#deleteEmployeeModal input[name="foodId"]').val(id);
+            $('#foodNameParagraph').text("Are you sure you want to delete " + name + "?");
+        });
+    }
+
+    deleteFood();
+
+    function deleteOrder(){
+        $('.delete-order').on('click', function () {
+            var row = $(this).closest('tr'); // Get the clicked row
+            var id = row.find('td:eq(1)').text(); // Index 0 corresponds to the 'id' column (first column
+            var address = row.find('td:eq(3)').text(); // Index 4 corresponds to the 'name' column
+            // Set the values in the delete modal
+            $('#deleteEmployeeModal input[name="order_id"]').val(id);
+            $('#orderNameParagraph').text("Are you sure you want to delete " + address + "?");
+        });
+    }
+
+    deleteOrder();
+
+</script>
+
+<script>
+    function setValueCategory() {
+        $('.edit-category').on('click', function () {
+            var row = $(this).closest('tr'); // Get the clicked row
+            var id = row.find('td:eq(1)').text(); // Index 0 corresponds to the 'id' column (first column
+            var name = row.find('td:eq(2)').text(); // Index 4 corresponds to the 'name' column
+            var restaurantId = $(this).data('restaurant-id');
+            console.log(restaurantId)
+            // Set the values in the edit modal
+            $('#categoryId').val(id);
+            $('#editEmployeeModal input[name="name"]').val(name);
+            $('#restaurantSelect').val(restaurantId)
+        });
+    }
+
+    function setValueFood() {
+        $('.edit-food').on('click', function () {
+            var row = $(this).closest('tr'); // Get the clicked row
+            var id = row.find('td:eq(1)').text(); // Index 0 corresponds to the 'id' column (first column
+            var name = row.find('td:eq(3)').text(); // Index 4 corresponds to the 'name' column
+            var price = row.find('td:eq(4)').text(); // Index 4 corresponds to the 'name' column
+            var quantity = row.find('td:eq(5)').text(); // Index 4 corresponds to the 'name' column
+            var imageUrl = row.find('td:eq(2) img').attr('src'); // Index 3 corresponds to the 'logoUrl' column
+            var categoryId = $(this).data('category-id');
+            // Set the values in the edit modal
+            $('#foodId').val(id);
+            $('#editEmployeeModal input[name="name"]').val(name);
+            $('#editEmployeeModal input[name="price"]').val(price);
+            $('#editEmployeeModal input[name="unit_quantity"]').val(quantity);
+            $('#editEmployeeModal input[name="image"]').val(imageUrl);
+            $('#categorySelect').val(categoryId)
+        });
+    }
+    function setValueOrder(){
+        $('.edit-order').on('click', function () {
+            var row = $(this).closest('tr'); // Get the clicked row
+            var id = row.find('td:eq(1)').text(); // Index 0 corresponds to the 'id' column (first column
+            var status = row.find('td:eq(4)').text(); // Index 0 corresponds to the 'id' column (first column
+
+// Set the values in the edit modal
+            $('#editEmployeeModal input[name="order_id"]').val(id);
+            $('#orderSelect').val(status);
+        });
+    }
+
+    $(document).ready(function () {
+        // Capture the clicked row's data and populate the edit modal fields
+        setValueCategory();
+        setValueFood();
+        setValueOrder();
+    });
 </script>
 
 
@@ -450,73 +543,15 @@
         // Capture the clicked row's data and populate the edit modal fields
        setListener();
        // get query page
-        const urlParams = new URLSearchParams(window.location.search);
-        const page = urlParams.get('page');
-        if (page) {
-            currentPage = page;
-            renderPage();
-        }
+       //  const urlParams = new URLSearchParams(window.location.search);
+       //  const page = urlParams.get('page');
+       //  if (page) {
+       //      currentPage = page;
+       //      renderPage();
+       //  }
 
 
     });
-</script>
-
-<script>
-    function updateRestaurant() {
-        var form = document.getElementById('editForm');
-        var formData = new FormData(form);
-
-        // Perform AJAX submission
-        $.ajax({
-            type: form.method,
-            url: form.action,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                // Handle success
-                console.log(response);
-
-                // Example: Show a success message
-                alert('Restaurant updated successfully!');
-
-                // Close the modal
-                $('#editEmployeeModal').modal('hide');
-
-                // Update the table with the new data
-                updateTable(response);
-            },
-            error: function (error) {
-                // Handle error, e.g., display error message
-                console.error(error);
-            }
-        });
-    }
-
-    function updateTable(data) {
-        // Assuming your table has an id="restaurantTable" and tbody
-        var tableBody = $('#restaurantTable tbody');
-
-        // Clear existing table rows
-        tableBody.empty();
-
-        // Append new rows based on the updated data
-        $.each(data, function (index, restaurant) {
-            var row = '<tr>' +
-                '<td>' + restaurant.resId + '</td>' +
-                '<td>' + restaurant.address + '</td>' +
-                '<td><img alt="" src="' + restaurant.logoUrl + '" width="60px" height="60px" style="object-fit: contain"></td>' +
-                '<td>' + restaurant.name + '</td>' +
-                '<td>' +
-                // Add other action elements as needed
-                '<a href="#editEmployeeModal" class="edit edit-link" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>' +
-                '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>' +
-                '</td>' +
-                '</tr>';
-
-            tableBody.append(row);
-        });
-    }
 </script>
 
 <script th:inline="javascript">
@@ -661,6 +696,461 @@
         setListener();
         deleteItem();
     }
+
+
+</script>
+
+<script th:inline="javascript">
+    const categories = [[${categories}]];
+    const cateLength = categories.length;
+    const cateElementPerPage = 5;
+    const cateNumberOfPages = Math.ceil(cateLength / cateElementPerPage);
+    let cateCurrentPage = 1;
+    renderPageCategory();
+
+    function movePageCategory(type) {
+        if (type === -1) {
+            if (cateCurrentPage === 1) {
+                return;
+            }
+            cateCurrentPage--;
+            renderPageCategory();
+        } else if (type === 0) {
+            if (cateCurrentPage === cateNumberOfPages) {
+                return;
+            }
+            cateCurrentPage++;
+            renderPageCategory();
+        } else {
+            cateCurrentPage = type;
+            renderPageCategory();
+        }
+        updateTableCategory();
+        // const form = document.getElementById('editForm');
+        // form.action = '/restaurant-management/edit?page=' + currentPage;
+
+    }
+
+
+    function renderPageCategory() {
+        const ulTagCategory = document.querySelector('body > div.container-xl > div > div > div.clearfix > ul');
+        for (let i = ulTagCategory.children.length - 1; i >= 0; i--) {
+            if (i === 0 || i === ulTagCategory.children.length - 1) {
+                continue;
+            }
+            ulTagCategory.children[i].remove();
+        }
+        //  <li class="page-item active"><a href="#" class="page-link">1</a></li> render 3
+
+        let start = cateCurrentPage === 1 ? 1 : cateCurrentPage - 1;
+        let end = cateCurrentPage === cateNumberOfPages ? cateNumberOfPages : cateCurrentPage + 1;
+
+
+        for (let i = 0; i < 3; i++) {
+            const liTagCategory = document.createElement('li');
+            liTagCategory.classList.add('page-item');
+            if (i === 0 && cateCurrentPage === start) {
+                //     not visible li
+                liTagCategory.classList.add('invisible', 'disabled');
+                liTagCategory.innerText = '&nbsp;';
+            } else if (i === 2 && cateCurrentPage === end) {
+                //     empty
+                liTagCategory.classList.add('invisible', 'disabled');
+                liTagCategory.innerText = '&nbsp;';
+
+
+            } else {
+                if (i === 1) {
+                    liTagCategory.classList.add('active');
+                }
+                const aTagCategory = document.createElement('a');
+                aTagCategory.classList.add('page-link');
+                aTagCategory.innerText = i === 0 ? start : i === 1 ? cateCurrentPage : end;
+
+                aTagCategory.addEventListener('click', function () {
+                    movePageCategory(i === 0 ? start : i === 1 ? cateCurrentPage : end);
+                })
+                liTagCategory.appendChild(aTagCategory);
+
+            }
+            ulTagCategory.insertBefore(liTagCategory, ulTagCategory.children[ulTagCategory.children.length - 1]);
+
+
+        }
+
+
+    }
+
+
+    function updateTableCategory() {
+        //function to update table category
+        const tableCate = document.getElementById('categoryTable');
+        tableCate.innerHTML = '';
+
+        let innerHTML = '';
+        innerHTML += '<table>\n' +
+            '                <thead>\n' +
+            '                <tr>\n' +
+            '                    <th>\n' +
+            '                           <span class="custom-checkbox">\n' +
+            '                               <input type="checkbox" id="selectAll">\n' +
+            '                               <label for="selectAll"></label>\n' +
+            '                           </span>\n' +
+            '                    </th>\n' +
+            '                    <th>Id</th>\n' +
+            '                    <th>Name</th>\n' +
+            '                    <th>Restaurant</th>\n' +
+            '                    <th>Action</th>\n' +
+            '\n' +
+            '                </tr>\n' +
+            '                </thead>\n' +
+            '                <tbody>\n';
+
+        let firstRow = (cateCurrentPage - 1) * cateElementPerPage;
+        let lastRow = cateCurrentPage * cateElementPerPage > cateLength ? cateLength : cateCurrentPage * cateElementPerPage;
+
+        for (let i = firstRow; i < lastRow; i++) {
+            const category = categories[i];
+            innerHTML +=  '<tr>\n' +
+                '                    <td>\n' +
+                '                    <span class="custom-checkbox">\n' +
+                '                        <input type="checkbox" id="checkbox1" name="options[]" th:value="${category.cateId}">\n' +
+                '                        <label for="checkbox1"></label>\n' +
+                '                    </span>\n' +
+                '                    </td>\n' +
+                `                    <td >${category.cate_id}</td>\n` +
+                `                    <td >${category.name}</td>\n` +
+                `                    <td >${category.restaurant.name}</td>\n` +
+                '                    <!-- Add other columns as needed -->\n' +
+                '                    <td>\n' +
+                '                        <a href="#editEmployeeModal" class="edit edit-category" data-toggle="modal" data-restaurant-id="'+category.restaurant.resId+'">\n' +
+                '                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>\n' +
+                '                        </a>\n' +
+                '                        <a href="#deleteEmployeeModal" class="delete delete-category" data-toggle="modal">\n' +
+                '                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>\n' +
+                '                        </a>\n' +
+                '                    </td>\n' +
+                '                </tr>\n';
+
+        }
+
+
+        innerHTML += '</tbody>\n' +
+            '            </table>';
+
+        tableCate.innerHTML = innerHTML;
+        setValueCategory();
+        deleteCategory();
+    }
+
+
+
+</script>
+
+<script th:inline="javascript">
+    const foods = [[${foods}]];
+    const foodLength = foods.length;
+    const foodElementPerPage = 5;
+    const foodNumberOfPages = Math.ceil(foodLength / foodElementPerPage);
+    let foodCurrentPage = 1;
+    renderPageFood();
+
+    function movePageFood(type) {
+        if (type === -1) {
+            if (foodCurrentPage === 1) {
+                return;
+            }
+            foodCurrentPage--;
+            renderPageFood();
+        } else if (type === 0) {
+            if (foodCurrentPage === foodNumberOfPages) {
+                return;
+            }
+            foodCurrentPage++;
+            renderPageFood();
+        } else {
+            foodCurrentPage = type;
+            renderPageFood();
+        }
+        updateTableFood();
+        // const form = document.getElementById('editForm');
+        // form.action = '/restaurant-management/edit?page=' + currentPage;
+
+    }
+
+
+    function renderPageFood() {
+        const ulTagFood = document.querySelector('body > div.container-xl > div > div > div.clearfix > ul');
+        for (let i = ulTagFood.children.length - 1; i >= 0; i--) {
+            if (i === 0 || i === ulTagFood.children.length - 1) {
+                continue;
+            }
+            ulTagFood.children[i].remove();
+        }
+        //  <li class="page-item active"><a href="#" class="page-link">1</a></li> render 3
+
+        let start = foodCurrentPage === 1 ? 1 : foodCurrentPage - 1;
+        let end = foodCurrentPage === foodNumberOfPages ? foodNumberOfPages : foodCurrentPage + 1;
+
+
+        for (let i = 0; i < 3; i++) {
+            const liTagFood = document.createElement('li');
+            liTagFood.classList.add('page-item');
+            if (i === 0 && foodCurrentPage === start) {
+                //     not visible li
+                liTagFood.classList.add('invisible', 'disabled');
+                liTagFood.innerText = '&nbsp;';
+            } else if (i === 2 && foodCurrentPage === end) {
+                //     empty
+                liTagFood.classList.add('invisible', 'disabled');
+                liTagFood.innerText = '&nbsp;';
+
+
+            } else {
+                if (i === 1) {
+                    liTagFood.classList.add('active');
+                }
+                const aTagFood = document.createElement('a');
+                aTagFood.classList.add('page-link');
+                aTagFood.innerText = i === 0 ? start : i === 1 ? foodCurrentPage : end;
+
+                aTagFood.addEventListener('click', function () {
+                    movePageFood(i === 0 ? start : i === 1 ? foodCurrentPage : end);
+                })
+                liTagFood.appendChild(aTagFood);
+
+            }
+            ulTagFood.insertBefore(liTagFood, ulTagFood.children[ulTagFood.children.length - 1]);
+
+
+        }
+
+
+    }
+
+
+    function updateTableFood() {
+        //function to update table food
+        const tableFood = document.getElementById('foodTable');
+        tableFood.innerHTML = '';
+
+        let innerHTML = '';
+        innerHTML += '<table>\n' +
+            '                <thead>\n' +
+            '                <tr>\n' +
+            '                    <th>\n' +
+            '                           <span class="custom-checkbox">\n' +
+            '                               <input type="checkbox" id="selectAll">\n' +
+            '                               <label for="selectAll"></label>\n' +
+            '                           </span>\n' +
+            '                    </th>\n' +
+            '                    <th>Id</th>\n' +
+            '                    <th>Image</th>\n' +
+            '                    <th>Name</th>\n' +
+            '                    <th>Price</th>\n' +
+            '                    <th>Quantity</th>\n' +
+            '                    <th>Category</th>\n' +
+            '                    <th>Action</th>\n' +
+            '\n' +
+            '                </tr>\n' +
+            '                </thead>\n' +
+            '                <tbody>\n';
+
+        let firstRow = (foodCurrentPage - 1) * foodElementPerPage;
+        let lastRow = foodCurrentPage * foodElementPerPage > foodLength ? foodLength : foodCurrentPage * foodElementPerPage;
+
+        for (let i = firstRow; i < lastRow; i++) {
+            const food = foods[i];
+            innerHTML +=  '<tr>\n' +
+                '                    <td>\n' +
+                '                    <span class="custom-checkbox">\n' +
+                '                        <input type="checkbox" id="checkbox1" name="options[]" th:value="${food.foodId}">\n' +
+                '                        <label for="checkbox1"></label>\n' +
+                '                    </span>\n' +
+                '                    </td>\n' +
+                `                    <td >${food.foodId}</td>\n` +
+                `                    <td><img alt="" src="${food.image}" width="60px" height="60px" style="object-fit: contain"></td>\n` +
+                `                    <td >${food.name}</td>\n` +
+                `                    <td >${food.price}</td>\n` +
+                `                    <td >${food.unit_quantity}</td>\n` +
+                `                    <td >${food.category.name}</td>\n` +
+                '                    <!-- Add other columns as needed -->\n' +
+                '                    <td>\n' +
+                '                        <a href="#editEmployeeModal" class="edit edit-food" data-toggle="modal" data-category-id="'+food.category.cate_id+'">\n' +
+                '                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>\n' +
+                '                        </a>\n' +
+                '                        <a href="#deleteEmployeeModal" class="delete delete-food" data-toggle="modal">\n' +
+                '                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>\n' +
+                '                        </a>\n' +
+                '                    </td>\n' +
+                '                </tr>\n';
+
+        }
+
+
+        innerHTML += '</tbody>\n' +
+            '            </table>';
+
+        tableFood.innerHTML = innerHTML;
+        setValueFood();
+        deleteFood();
+    }
+
+
+
+</script>
+
+<script th:inline="javascript">
+    const orders = [[${orders}]];
+    const orderLength = orders.length;
+    const orderElementPerPage = 5;
+    const orderNumberOfPages = Math.ceil(orderLength / orderElementPerPage);
+    let orderCurrentPage = 1;
+    renderPageOrder();
+
+    function movePageOrder(type) {
+        if (type === -1) {
+            if (orderCurrentPage === 1) {
+                return;
+            }
+            orderCurrentPage--;
+            renderPageOrder();
+        } else if (type === 0) {
+            if (orderCurrentPage === orderNumberOfPages) {
+                return;
+            }
+            orderCurrentPage++;
+            renderPageOrder();
+        } else {
+            orderCurrentPage = type;
+            renderPageOrder();
+        }
+        updateTableOrder();
+        // const form = document.getElementById('editForm');
+        // form.action = '/restaurant-management/edit?page=' + currentPage;
+
+    }
+
+
+    function renderPageOrder() {
+        const ulTagOrder = document.querySelector('body > div.container-xl > div > div > div.clearfix > ul');
+        for (let i = ulTagOrder.children.length - 1; i >= 0; i--) {
+            if (i === 0 || i === ulTagOrder.children.length - 1) {
+                continue;
+            }
+            ulTagOrder.children[i].remove();
+        }
+        //  <li class="page-item active"><a href="#" class="page-link">1</a></li> render 3
+
+        let start = orderCurrentPage === 1 ? 1 : orderCurrentPage - 1;
+        let end = orderCurrentPage === orderNumberOfPages ? orderNumberOfPages : orderCurrentPage + 1;
+
+
+        for (let i = 0; i < 3; i++) {
+            const liTagOrder = document.createElement('li');
+            liTagOrder.classList.add('page-item');
+            if (i === 0 && orderCurrentPage === start) {
+                //     not visible li
+                liTagOrder.classList.add('invisible', 'disabled');
+                liTagOrder.innerText = '&nbsp;';
+            } else if (i === 2 && orderCurrentPage === end) {
+                //     empty
+                liTagOrder.classList.add('invisible', 'disabled');
+                liTagOrder.innerText = '&nbsp;';
+
+
+            } else {
+                if (i === 1) {
+                    liTagOrder.classList.add('active');
+                }
+                const aTagOrder = document.createElement('a');
+                aTagOrder.classList.add('page-link');
+                aTagOrder.innerText = i === 0 ? start : i === 1 ? orderCurrentPage : end;
+
+                aTagOrder.addEventListener('click', function () {
+                    movePageOrder(i === 0 ? start : i === 1 ? orderCurrentPage : end);
+                })
+                liTagOrder.appendChild(aTagOrder);
+
+            }
+            ulTagOrder.insertBefore(liTagOrder, ulTagOrder.children[ulTagOrder.children.length - 1]);
+
+
+        }
+
+
+    }
+
+
+    function updateTableOrder() {
+        //function to update table order
+        const tableOrder = document.getElementById('orderTable');
+        tableOrder.innerHTML = '';
+
+        let innerHTML = '';
+        innerHTML += '<table>\n' +
+            '                <thead>\n' +
+            '                <tr>\n' +
+            '                    <th>\n' +
+            '                           <span class="custom-checkbox">\n' +
+            '                               <input type="checkbox" id="selectAll">\n' +
+            '                               <label for="selectAll"></label>\n' +
+            '                           </span>\n' +
+            '                    </th>\n' +
+            '                    <th>Id</th>\n' +
+            '                    <th>Phone</th>\n' +
+            '                    <th>Address</th>\n' +
+            '                    <th>Status</th>\n' +
+            '                    <th>Total Price</th>\n' +
+            '                    <th>Restaurant</th>\n' +
+            '                    <th>User</th>\n' +
+            '                    <th>Action</th>\n' +
+            '\n' +
+            '                </tr>\n' +
+            '                </thead>\n' +
+            '                <tbody>\n';
+
+        let firstRow = (orderCurrentPage - 1) * orderElementPerPage;
+        let lastRow = orderCurrentPage * orderElementPerPage > orderLength ? orderLength : orderCurrentPage * orderElementPerPage;
+
+        for (let i = firstRow; i < lastRow; i++) {
+            const order = orders[i];
+            innerHTML +=  '<tr>\n' +
+                '                    <td>\n' +
+                '                    <span class="custom-checkbox">\n' +
+                '                        <input type="checkbox" id="checkbox1" name="options[]" th:value="${order.order_id}">\n' +
+                '                        <label for="checkbox1"></label>\n' +
+                '                    </span>\n' +
+                '                    </td>\n' +
+                `                    <td >${order.order_id}</td>\n` +
+                `                    <td >${order.phone}</td>\n` +
+                `                    <td >${order.address}</td>\n` +
+                `                    <td >${order.status}</td>\n` +
+                `                    <td >${order.totalPrice}</td>\n` +
+                `                    <td >${order.restaurant.name}</td>\n` +
+                `                    <td >${order.user.name}</td>\n` +
+                '                    <!-- Add other columns as needed -->\n' +
+                '                    <td>\n' +
+                '                        <a href="#editEmployeeModal" class="edit edit-order" data-toggle="modal">\n' +
+                '                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>\n' +
+                '                        </a>\n' +
+                '                        <a href="#deleteEmployeeModal" class="delete delete-order" data-toggle="modal">\n' +
+                '                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>\n' +
+                '                        </a>\n' +
+                '                    </td>\n' +
+                '                </tr>\n';
+
+        }
+
+
+        innerHTML += '</tbody>\n' +
+            '            </table>';
+
+        tableOrder.innerHTML = innerHTML;
+        setValueOrder();
+        deleteOrder();
+    }
+
 
 
 </script>

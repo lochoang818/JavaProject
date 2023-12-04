@@ -28,7 +28,7 @@ public class User {
     boolean enable;
     String verificationCode;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Orders> orders;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<Orders> orders;
 }

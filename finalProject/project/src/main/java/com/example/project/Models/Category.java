@@ -15,17 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property ="cate_id")
-
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cate_id;
     String Name;
-    @JsonIgnore
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Food> foodList;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<Food> foodList;
+
     @ManyToOne
     @JoinColumn(name = "restaurant")
-
     private Restaurant restaurant;
 }

@@ -11,6 +11,6 @@ public interface CategoryService {
     public List<Category> findAll();
     public void addCategory(Category category);
     public void updateCategory(Category category);
-    public void deleteCategory(int catId);
+    public void deleteCategory(int cate_id);
 
 }

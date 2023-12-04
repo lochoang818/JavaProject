@@ -23,4 +23,9 @@ public interface OrderService {
     public List<FoodOrder> getDetailOrder(String orderId);
     public Orders getOrder(String id);
 
+    public List<Orders> findAll();
+    public void addOrder(Orders orders);
+    public void updateOrder(Orders orders);
+    public void deleteOrder(String order_id);
+
 }

@@ -2,9 +2,13 @@ package com.example.project.Controllers;
 
 
 import com.example.project.Models.Category;
+import com.example.project.Models.Food;
+import com.example.project.Models.Orders;
 import com.example.project.Models.Restaurant;
 import com.example.project.Repository.CategoryRepository;
 import com.example.project.Services.CategoryService;
+import com.example.project.Services.FoodService;
+import com.example.project.Services.OrderService;
 import com.example.project.Services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,12 @@ public class AdminController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private FoodService foodService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/restaurant-management")
     public String restaurantManagement(Model model, @RequestParam(name = "page", required = false, defaultValue = "1") int page) {
@@ -61,7 +71,6 @@ public class AdminController {
         restaurantService.updateRestaurant(newRestaurant);
         List<Restaurant> restaurants = restaurantService.findAll();
         model.addAttribute("restaurants", restaurants);
-
         return "redirect:/restaurant-management";
     }
 
@@ -92,14 +101,83 @@ public class AdminController {
         return "redirect:/category-management";
     }
 
+    @PostMapping("/category-management/edit")
+    public String editCategory(@ModelAttribute Category newCategory, Model model) {
+        categoryService.updateCategory(newCategory);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
+        return "redirect:/category-management";
+    }
+
+    @PostMapping("/category-management/delete")
+    public String deleteCategory(@RequestParam(name = "cate_id") int cate_id, Model model) {
+        categoryService.deleteCategory(cate_id);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
+        return "redirect:/category-management";
+    }
+
     @GetMapping("/food-management")
-    public String foodManagement() {
+    public String foodManagement(Model model) {
+        List<Food> foods = foodService.findAll();
+        List<Category> categories = categoryService.findAll();
+
+        model.addAttribute("foods", foods);
+        model.addAttribute("newFood", new Food());
+        model.addAttribute("categories", categories);
+
         return "Admin/food-management";
+
+    }
+
+    @PostMapping("/food-management/add")
+    public String addFood(@ModelAttribute Food newFood, Model model) {
+        foodService.addFood(newFood);
+        List<Food> foods = foodService.findAll();
+        model.addAttribute("foods", foods);
+        return "redirect:/food-management";
+    }
+
+    @PostMapping("/food-management/edit")
+    public String editFood(@ModelAttribute Food newFood, Model model) {
+        foodService.updateFood(newFood);
+        List<Food> foods = foodService.findAll();
+        model.addAttribute("foods", foods);
+        return "redirect:/food-management";
+    }
+
+    @PostMapping("/food-management/delete")
+    public String deleteFood(@RequestParam(name = "foodId") int foodId, Model model) {
+        foodService.deleteFood(foodId);
+        List<Food> foods = foodService.findAll();
+        model.addAttribute("foods", foods);
+        return "redirect:/food-management";
     }
 
     @GetMapping("/order-management")
-    public String orderManagement() {
+    public String orderManagement(Model model) {
+        List<Orders> orders = orderService.findAll();
+        List<Restaurant> restaurants = restaurantService.findAll();
+        model.addAttribute("restaurants", restaurants);
+        model.addAttribute("orders", orders);
+        model.addAttribute("newOrder", new Orders());
         return "Admin/order-management";
+    }
+
+    @PostMapping("/order-management/edit")
+    public String editOrder(@ModelAttribute Orders newOrder, Model model) {
+        orderService.updateOrder(newOrder);
+        List<Orders> orders = orderService.findAll();
+        model.addAttribute("orders", orders);
+        return "redirect:/order-management";
+    }
+
+    @PostMapping("/order-management/delete")
+    public String deleteOrder(@RequestParam(name = "order_id") String order_id, Model model) {
+        orderService.deleteOrder(order_id);
+        List<Orders> orders = orderService.findAll();
+        model.addAttribute("orders", orders);
+        return "redirect:/order-management";
     }
 
 
