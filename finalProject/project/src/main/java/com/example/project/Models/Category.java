@@ -20,11 +20,14 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cate_id;
     String Name;
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<Food> foodList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Food> foodList;
 
     @ManyToOne
     @JoinColumn(name = "restaurant")
     private Restaurant restaurant;
+
+
 }

@@ -13,14 +13,17 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-public interface OrderRepository extends JpaRepository<Orders,Integer> {
+public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Query("SELECT o FROM Orders o WHERE o.user.email = :email AND o.status = :status AND o.restaurant.resId = :restaurantId ")
-    public Optional<Orders> findOrdering(String email,String status, int restaurantId);
+    public Optional<Orders> findOrdering(String email, String status, int restaurantId);
+
     @Query("SELECT COUNT(o) FROM Orders o WHERE o.user.User_id = :userId AND o.restaurant.resId = :restaurantId")
     public int CountOrder(int userId, int restaurantId);
-    @Query("select o from  Orders o  where  o.user.email like :email")
+
+    @Query("select o from  Orders o  where  o.user.email like :email and o.status not like 'Ordering' ")
     public List<Orders> getAllOrder(String email);
-@Query("select  o from Orders o where o.order_id like :orderid")
+
+    @Query("select  o from Orders o where o.order_id like :orderid")
     public Orders getOrder(String orderid);
 
     @Modifying
