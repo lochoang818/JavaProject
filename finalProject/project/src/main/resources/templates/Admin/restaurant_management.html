@@ -50,10 +50,10 @@
                     </span>
                     </td>
                     <td th:text="${restaurant.resId}"></td>
-                    <td th:text="${restaurant.address}"></td>
-                    <td><img alt="" th:src="${restaurant.logoUrl}" width="60px" height="60px"
-                             style="object-fit: contain"></td>
                     <td th:text="${restaurant.name}"></td>
+                    <td><img alt="" th:src="${restaurant.address}" width="60px" height="60px"
+                             style="object-fit: contain"></td>
+                    <td th:text="${restaurant.logoUrl}"></td>
                     <!-- Add other columns as needed -->
                     <td>
                         <a href="#editEmployeeModal" class="edit edit-link" data-toggle="modal">

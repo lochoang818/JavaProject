@@ -40,7 +40,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
         http.csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER")
+                .authorizeHttpRequests()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/**").permitAll()
                 .requestMatchers("/css/**", "/js/**").permitAll()
@@ -54,7 +54,7 @@ public class SecurityConfig {
 
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/signin?logout");
+                .logoutSuccessUrl("/");
         return http.build();
     }
 
