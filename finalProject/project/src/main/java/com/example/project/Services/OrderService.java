@@ -19,5 +19,8 @@ public interface OrderService {
 
     public void updateQuantity(int newQuantity, int foodId, double price);
     public void deleteCart(int foodId);
+    public List<Orders> getAllOrder(String email);
+    public List<FoodOrder> getDetailOrder(String orderId);
+    public Orders getOrder(String id);
 
 }

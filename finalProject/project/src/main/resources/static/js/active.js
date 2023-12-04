@@ -44,7 +44,24 @@ Version:1.0
 			animateOut: 'fadeOut',
 			closeOnClick:true,
 		});
-		
+		 const path = window.location.pathname;
+
+		 if (path.startsWith('/Home')) {
+			 $('#home').addClass('active');
+		 }
+		 else if (path.startsWith('/Restaurant/')) {
+			 $('#Restaurant').addClass('active');
+		 }
+		 else if (path.startsWith('/Order/')) {
+			 $('#order').addClass('active');
+		 }
+		 else if (path.startsWith('/Home/about')) {
+			 $('#about').addClass('active');
+		 }
+		 else{
+			 $('#home').addClass('active');
+
+		 }
 		/*====================================
 		03. Sticky Header JS
 		======================================*/ 

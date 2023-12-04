@@ -200,4 +200,41 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
     }
+    @GetMapping("/OrderHistory")
+    public ModelAndView orderHistory(HttpSession session){
+        ModelAndView modelAndView;
+
+        String email = (String) session.getAttribute("email");
+
+
+        if (email == null) {
+            modelAndView = new ModelAndView("redirect:/signin");
+        } else {
+            modelAndView = new ModelAndView("Orders/OrderHistory");
+
+            List<Orders> r = this.orderService.getAllOrder(email);
+            modelAndView.addObject("allOrder", r);
+        }
+
+        return modelAndView;
+    }
+    @GetMapping("/DetailOrder/{idOrder}")
+    public ModelAndView ShowDetailOrder(@PathVariable(name = "idOrder") String idOrder, HttpSession session) {
+        ModelAndView modelAndView;
+
+        String email = (String) session.getAttribute("email");
+
+        if (email == null) {
+            modelAndView = new ModelAndView("redirect:/signin");
+        } else {
+            modelAndView = new ModelAndView("Orders/OrderDetail");
+            List<FoodOrder> lstFood = this.orderService.getDetailOrder(idOrder);
+            Orders o = this.orderService.getOrder(idOrder);
+            modelAndView.addObject("lstFood", lstFood);
+            modelAndView.addObject("orderDetail", o);
+
+        }
+
+        return modelAndView;
+    }
 }

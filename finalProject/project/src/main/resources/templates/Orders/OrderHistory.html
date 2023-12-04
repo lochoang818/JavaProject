@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+      layout:decorate="layout/index">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History</title>
+</head>
+<body  layout:fragment="body">
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="blog-single.html">Order List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-12 card mt-4" th:each=" o : ${allOrder}">
+            <h5 class="card-header">Id: <span th:text="${o.getOrder_id()}"></span></h5>
+            <div class="card-body">
+                <h5 class="card-title">Address: <span th:text="${o.getAddress()}"></span></h5>
+                <p class="card-text">Status: <span th:text="${o.getStatus()}"></span></p>
+                <p class="card-text">Total bill:<span th:text="${o.getTotalPrice()}"></span></p>
+                <p class="card-text">Date: </p>
+
+                <a  class="btn btn-primary" th:href="@{'/Order/DetailOrder/' + ${o.getOrder_id()}}">View Detail</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

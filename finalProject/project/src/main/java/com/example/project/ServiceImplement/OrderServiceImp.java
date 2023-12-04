@@ -109,5 +109,20 @@ public class OrderServiceImp implements OrderService {
         foodOrderRepository.deleteCart(foodId);
     }
 
+    @Override
+    public List<Orders> getAllOrder(String email) {
+        return this.orderRepository.getAllOrder(email);
+    }
+
+    @Override
+    public List<FoodOrder> getDetailOrder(String orderId) {
+        return this.foodOrderRepository.getDetailOrder(orderId);
+    }
+
+    @Override
+    public Orders getOrder(String id) {
+        return this.orderRepository.getOrder(id);
+    }
+
 
 }

@@ -17,6 +17,10 @@ public interface OrderRepository extends JpaRepository<Orders,Integer> {
     public Optional<Orders> findOrdering(String email,String status, int restaurantId);
     @Query("SELECT COUNT(o) FROM Orders o WHERE o.user.User_id = :userId AND o.restaurant.resId = :restaurantId")
     public int CountOrder(int userId, int restaurantId);
+    @Query("select o from  Orders o  where  o.user.email like :email")
+    public List<Orders> getAllOrder(String email);
+@Query("select  o from Orders o where o.order_id like :orderid")
+    public Orders getOrder(String orderid);
 
     @Modifying
     @Query("UPDATE Orders c SET c.status = 'Shipping', c.totalPrice = :totalPrice WHERE c.order_id = :order_id")

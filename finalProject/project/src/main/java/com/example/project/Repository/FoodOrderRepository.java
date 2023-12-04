@@ -26,8 +26,10 @@ public interface FoodOrderRepository extends JpaRepository<FoodOrder, FoodOrderK
     @Query("select  sum(f.price) from  FoodOrder  f where  f.order.order_id like :orderId and f.food.category.restaurant.resId = :resId")
     Double totalPriceCart(String orderId, int resId);
 
-    @Query("select distinct f.food.category.restaurant from FoodOrder f where f.order.user.email like :email")
+    @Query("select distinct f.food.category.restaurant from FoodOrder f where f.order.user.email like :email and f.order.status ='Ordering'")
     List<Restaurant> CartList(String email);
+    @Query("select f from FoodOrder f where f.order.order_id like :orderId")
+    public List<FoodOrder> getDetailOrder(String orderId);
 
     @Modifying
     @Query("UPDATE FoodOrder c SET c.quantity = :qty, c.price = :price WHERE c.food.foodId = :id")

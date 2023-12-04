@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+      layout:decorate="layout/index">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body layout:fragment="body">
+<div class="shopping-cart section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Shopping Summery -->
+                <table class="table shopping-summery">
+                    <thead>
+                    <tr class="main-hading">
+                        <th>PRODUCT</th>
+                        <th>NAME</th>
+                        <th class="text-center">UNIT PRICE</th>
+                        <th class="text-center">QUANTITY</th>
+                        <th class="text-center">TOTAL</th>
+                        <th class="text-center"><i class="ti-trash remove-icon"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody id="body-cart">
+
+
+                    <tr th:each="f : ${lstFood}">
+                        <td class="image" data-title="No"><img th:src="${f.getFood().getImage()}" alt="#"></td>
+                        <td class="product-des" data-title="Description">
+                            <p class="product-name" th:text="${f.getFood().getName()}"></p>
+                        </td>
+                        <td class="price" data-title="Price"><span
+                                                                   th:text="${f.getFood().getPrice()}"> </span></td>
+                        <td class="qty" data-title="Qty">
+                            <!-- Input Order -->
+                            <div class="input-group">
+                                <div class="button minus">
+                                    <button type="button" class="btn btn-primary btn-number btnMinus"
+                                            data-type="minus" disabled>
+                                        <i class="ti-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number"  class="input-number"
+                                       data-min="1" data-max="100" th:value="${f.getQuantity()}" disabled>
+                                <div class="button plus">
+                                    <button type="button" class="btn btn-primary btn-number btnPlus"
+                                            data-type="plus" disabled>
+                                        <i class="ti-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--/ End Input Order -->
+                        </td>
+                        <td class="total-amount" data-title="Total"><span
+                                                                          th:text="${f.getPrice()}">      <span>$</span></span>
+                        </td>
+                        <td class="action" data-title="Remove">
+                            <button class="btnRemove" disabled><i
+                                    class="ti-trash remove-icon"></i></button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <!--/ End Shopping Summery -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Total Amount -->
+                <div class="total-amount">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5 col-12">
+                            <div class="right">
+                                <ul>
+                                    <li>Cart Subtotal<span class="totalPriceCart"
+                                                           th:text="${orderDetail.getTotalPrice()}">      <span>$</span></span></li>
+                                    <li>Shipping<span>Free</span></li>
+                                    <li class="last">You Pay<span class="totalPriceCart" th:text="${orderDetail.getTotalPrice()}">      <span>$</span></span></li>
+                                    <li>Status <span th:text="${orderDetail.getStatus()}"></span></li>
+                                    <li>Address<span  th:text="${orderDetail.getAddress()}"> </span></li>
+                                    <li>Phone <span  th:text="${orderDetail.getPhone()}"> </span></li>
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--/ End Total Amount -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
