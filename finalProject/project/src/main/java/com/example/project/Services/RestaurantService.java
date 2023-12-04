@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface RestaurantService {
     public List<Restaurant> findAll();
+    public void addRestaurant(Restaurant restaurant);
+    public void updateRestaurant(Restaurant restaurant);
+    public void deleteRestaurant(int resId);
     public Page<Restaurant> searchRestaurant(String query,int page, int pageSize);
     public Page<Restaurant> getAllRestByPage(int page, int pageSize);
     public List<Category> searchCategory(String query);

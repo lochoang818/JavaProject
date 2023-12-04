@@ -86,6 +86,10 @@ public class OrderServiceImp implements OrderService {
         } else {
         }
     }
+    public void updateOrderShipping(String order_id, double totalPrice)
+    {
+        this.orderRepository.updateOrderShipping(totalPrice, order_id);
+    }
 
     public Optional<Orders> findOrdering(String email, int restaurantId) {
         return this.orderRepository.findOrdering(email, "Ordering", restaurantId);
