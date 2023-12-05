@@ -27,9 +27,9 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     public Orders getOrder(String orderid);
 
     @Modifying
-    @Query("UPDATE Orders c SET c.status = 'Shipping', c.totalPrice = :totalPrice WHERE c.order_id = :order_id")
+    @Query("UPDATE Orders c SET c.status = 'Shipping', c.totalPrice = :totalPrice, c.localDateTime = :localDateTime WHERE c.order_id = :order_id")
     @Transactional
-    void updateOrderShipping(@Param("totalPrice") double totalPrice, @Param("order_id") String order_id);
+    void updateOrderShipping(@Param("totalPrice") double totalPrice, @Param("order_id") String order_id, @Param("localDateTime") String localDateTime);
 
     //query to find id
     @Query("SELECT o FROM Orders o WHERE o.order_id = :order_id")

@@ -124,7 +124,8 @@ public class VNPayController {
             HttpSession session,
             @RequestParam(value = "vnp_Amount") String amount,
             @RequestParam(value = "vnp_OrderInfo") String orderid_Resid,
-            @RequestParam(value = "vnp_ResponseCode") String responseCode
+            @RequestParam(value = "vnp_ResponseCode") String responseCode,
+            @RequestParam(value = "vnp_CreateDate") String vnp_CreateDate
     ){
         ModelAndView modelAndView;
 
@@ -136,7 +137,7 @@ public class VNPayController {
             if(responseCode.equals("00")) {
                 modelAndView = new ModelAndView("redirect:/Restaurant/showAll");
                 String orderid[] = orderid_Resid.split("_");
-                this.orderService.updateOrderShipping(orderid[0], Double.valueOf(amount)/100/1000);
+                this.orderService.updateOrderShipping(orderid[0], Double.valueOf(amount)/100/1000, vnp_CreateDate);
             }
             else{
                 String Resid[] = orderid_Resid.split("_");

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,7 @@ public class Orders {
     String address;
     double totalPrice;
     String status;
+    LocalDateTime localDateTime;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
