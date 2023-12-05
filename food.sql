@@ -1,3 +1,5 @@
+create database food;
+use food;
 INSERT INTO `restaurant` (`res_id`, `address`, `logo_url`, `name`)
 VALUES (1, '/images/restaurant/pic1.jpg', 'Nhà hàng 1', '15/7 Cộng Hòa'),
        (2, '/images/restaurant/pic2.jpg', 'Nhà hàng 2', '54 Cầu giấy'),
