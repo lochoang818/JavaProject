@@ -59,7 +59,7 @@
                         <h2>Make Your Checkout Here</h2>
                         <p>Please register in order to check out more quickly</p>
                         <!-- Form -->
-                        <form class="form" method="post" th:action="@{/Order/checkout}">
+                        <form class="form" method="post" th:action="${paymentLink}">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="mb-3">
@@ -70,7 +70,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address<span>*</span></label>
-                                        <input type="text" class="form-control" id="address" th:placeholder="${address}" th:value="${address}">
+                                        <input type="text" class="form-control" id="address" name="address" th:placeholder="${address}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
@@ -82,7 +82,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Phone Number<span>*</span></label>
-                                        <input type="number" class="form-control" id="phone" th:placeholder="${phoneNumber}" th:value="${phoneNumber}">
+                                        <input type="number" class="form-control" id="phone" name="phoneNumber" th:placeholder="${phoneNumber}">
                                     </div>
                                 </div>
                             </div>

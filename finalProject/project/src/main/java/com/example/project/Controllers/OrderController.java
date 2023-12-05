@@ -46,45 +46,6 @@ public class OrderController {
             m.addAttribute("user", user);
         }
     }
-    @PostMapping("/checkout")
-    public ModelAndView checkout(@RequestParam String orderID, @RequestParam Double totalPriceCheckOut, HttpSession session)
-    {
-        ModelAndView modelAndView;
-
-        String email = (String) session.getAttribute("email");
-
-        if (email == null) {
-            modelAndView = new ModelAndView("redirect:/signin");
-        } else {
-            modelAndView = new ModelAndView("redirect:/Restaurant/showAll");
-            this.orderService.updateOrderShipping(orderID, totalPriceCheckOut);
-
-        }
-        return modelAndView;
-    }
-    @GetMapping("/checkout/{ResId}")
-    public ModelAndView checkout(@PathVariable int ResId, HttpSession session)
-    {
-        ModelAndView modelAndView;
-
-        String email = (String) session.getAttribute("email");
-
-        if (email == null) {
-            modelAndView = new ModelAndView("redirect:/signin");
-        } else {
-            modelAndView = new ModelAndView("Orders/checkout");
-            User user = userRepo.findByEmail(email);
-            modelAndView.addObject("fullName", user.getName());
-            modelAndView.addObject("address", user.getAddress());
-            modelAndView.addObject("emailAddress", user.getEmail());
-            modelAndView.addObject("phoneNumber", user.getPhone());
-            Double totalPrice = this.orderService.totalPriceCart(email, ResId);
-            modelAndView.addObject("TotalPrice", totalPrice);
-            Optional<Orders> o = this.orderService.findOrdering(email, ResId);
-            modelAndView.addObject("OrderID", o.get().getOrder_id());
-        }
-        return modelAndView;
-    }
 
     @GetMapping("/getOrder")
     public ResponseEntity getOrder(@RequestParam("ResId") int ResId, @RequestParam("email") String email, @RequestParam("foodId") int foodId) {
