@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -125,7 +126,7 @@ public class VNPayController {
             @RequestParam(value = "vnp_Amount") String amount,
             @RequestParam(value = "vnp_OrderInfo") String orderid_Resid,
             @RequestParam(value = "vnp_ResponseCode") String responseCode,
-            @RequestParam(value = "vnp_CreateDate") String vnp_CreateDate
+            @RequestParam(value = "vnp_PayDate") String vnp_PayDate
     ){
         ModelAndView modelAndView;
 
@@ -137,7 +138,17 @@ public class VNPayController {
             if(responseCode.equals("00")) {
                 modelAndView = new ModelAndView("redirect:/Restaurant/showAll");
                 String orderid[] = orderid_Resid.split("_");
-                this.orderService.updateOrderShipping(orderid[0], Double.valueOf(amount)/100/1000, vnp_CreateDate);
+                String inputString = vnp_PayDate;
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss");
+                try {
+                    Date date = inputFormat.parse(inputString);
+                    String formattedString = outputFormat.format(date);
+                    String res[] = formattedString.split("/");
+                    this.orderService.updateOrderShipping(orderid[0], Double.valueOf(amount)/100/1000, res[0] + "/" + res[1] + "/" + res[2] + " - " + res[3] + ":" + res[4] +":" + res[5]);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
             else{
                 String Resid[] = orderid_Resid.split("_");

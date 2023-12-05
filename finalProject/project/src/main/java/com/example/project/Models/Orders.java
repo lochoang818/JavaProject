@@ -23,7 +23,7 @@ public class Orders {
     String address;
     double totalPrice;
     String status;
-    LocalDateTime localDateTime;
+    String localDateTime;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
