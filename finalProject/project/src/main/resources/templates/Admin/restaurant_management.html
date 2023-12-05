@@ -50,10 +50,10 @@
                     </span>
                     </td>
                     <td th:text="${restaurant.resId}"></td>
-                    <td th:text="${restaurant.address}"></td>
-                    <td><img alt="" th:src="${restaurant.logoUrl}" width="60px" height="60px"
-                             style="object-fit: contain"></td>
                     <td th:text="${restaurant.name}"></td>
+                    <td><img alt="" th:src="${restaurant.address}" width="60px" height="60px"
+                             style="object-fit: contain"></td>
+                    <td th:text="${restaurant.logoUrl}"></td>
                     <!-- Add other columns as needed -->
                     <td>
                         <a href="#editEmployeeModal" class="edit edit-link" data-toggle="modal">
@@ -84,7 +84,7 @@
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form th:action="@{/restaurant-management/add}" th:object="${newRestaurant}" method="post">
+            <form th:action="@{/admin/restaurant-management/add}" th:object="${newRestaurant}" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Restaurant</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -116,7 +116,7 @@
 <div id="editEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="editForm" th:action="@{/restaurant-management/edit}"  th:object="${newRestaurant}" method="post">
+            <form id="editForm" th:action="@{/admin/restaurant-management/edit}"  th:object="${newRestaurant}" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit Restaurant</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -151,7 +151,7 @@
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form th:action="@{/restaurant-management/delete}"  th:object="${newRestaurant}" method="post">
+            <form th:action="@{/admin/restaurant-management/delete}"  th:object="${newRestaurant}" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Delete Restaurant</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

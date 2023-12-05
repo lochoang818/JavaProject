@@ -2,15 +2,16 @@ package com.example.project.Models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
-@Entity
+
 @Data
+@Setter
+@Getter
+@ToString
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +32,7 @@ public class Food {
 
 
 
-    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
     Set<FoodOrder> foodOrders;
 }

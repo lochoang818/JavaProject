@@ -22,9 +22,9 @@ public class Restaurant {
     String name;
     String logoUrl;
     String address;
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<Category> categories;
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Category> categories;
 
 
 

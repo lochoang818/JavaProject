@@ -7,22 +7,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .active {
+            background-color: #ef9931;
+        }
+    </style>
+
 
     <script type="text/javascript">
         function redirectToSelectedOption() {
             var selectedOption = document.getElementById("sortOptions").value;
             var idRes = document.getElementById("sortOptions").dataset.idres;
             var category = document.getElementById("sortOptions").dataset.category;
-            if(category == undefined) {
+
+            if (category == undefined) {
                 category = ""
             }
+
             var redirectUrl = '/Restaurant/show/' + idRes + '?category=' + category + '&search=&sortBy=' + selectedOption;
+
+            // Add selectedOption as a query parameter
+            redirectUrl += '&selectedOption=' + encodeURIComponent(selectedOption);
+
             window.location.href = redirectUrl;
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var selectedOption = urlParams.get('selectedOption');
+
+            if (selectedOption) {
+                $(".current").text(selectedOption);
+            }
+        });
+
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var up = urlParams.get('up');
+            var down = urlParams.get('down');
+
+            // Add 'active' class based on URL parameters
+            $('.check-box-list a').each(function () {
+                var hrefUp = parseInt($(this).attr('href').match(/up=(\d+)/)[1]);
+                var hrefDown = parseInt($(this).attr('href').match(/down=(\d+)/)[1]);
+
+                if (up == hrefUp && down == hrefDown) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+
+
     </script>
 
 </head>
-<body  >
+<body>
 <div layout:fragment="body">
     <div class="breadcrumbs">
         <div class="container">
@@ -30,16 +69,14 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a >Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                            <li><a>Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="blog-single.html">Shop Grid</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
 
 
     <section class="product-area shop-sidebar shop section">
@@ -54,11 +91,13 @@
                                 <li><a href="#" th:href="@{/Restaurant/show/{idRes}(idRes=${idRes})}">All</a></li>
 
                             </ul>
-                            <ul class="categor-list" th:each="category : ${listCategory}">
+                            <ul class="categor-list" th:each="category1 : ${listCategory}">
                                 <li>
                                     <a
-                                            th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search='}"
-                                            th:text="${category}"></a>
+                                            th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category1} + '&search='}"
+                                            th:text="${category1}"
+                                            th:class="${category1 == category}? 'active' : '' "
+                                    ></a>
                                 </li>
                             </ul>
 
@@ -70,22 +109,29 @@
                             <h3 class="title">Shop by Price</h3>
                             <ul class="check-box-list">
                                 <li>
-                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=100&down=0'}">$0 - $100</a>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=100&down=0'}"
+                                    >$0
+                                        - $100</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=200&down=100'}">$100 - $200</a>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=200&down=100'}">$100
+                                        - $200</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=300&down=200'}">$200 - $300</a>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=300&down=200'}">$200
+                                        - $300</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=400&down=300'}">$300 - $400</a>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=400&down=300'}">$300
+                                        - $400</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=500&down=400'}">$400 - $500</a>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=500&down=400'}">$400
+                                        - $500</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=-1&down=500'}">$500 +</a>
+                                    <a th:href="@{'/Restaurant/show/' + ${idRes} + '?category=' + ${category} + '&search=&up=-1&down=500'}">$500
+                                        +</a>
                                 </li>
                             </ul>
                         </div>
@@ -102,7 +148,8 @@
                                 <div class="shop-shorter">
                                     <div class="single-shorter">
                                         <label>Sort By:</label>
-                                        <select id="sortOptions" onchange="redirectToSelectedOption()" th:data-idRes="${idRes}" th:data-category="${category}">
+                                        <select id="sortOptions" onchange="redirectToSelectedOption()"
+                                                th:data-idRes="${idRes}" th:data-category="${category}">
                                             <option value="NameASC">Name ASC</option>
                                             <option value="NameDESC">Name DESC</option>
                                             <option value="PriceASC">Price ASC</option>
@@ -116,7 +163,9 @@
                             <div class="search-area">
                                 <form action="#" method="get" style="display: block">
                                     <input type="search" name="search" id="headerSearch" placeholder="Type for search">
-                                    <button type="submit" style="width: 10%; height: 31.6px"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button type="submit" style="width: 10%; height: 31.6px"><i class="fa fa-search"
+                                                                                                aria-hidden="true"></i>
+                                    </button>
                                 </form>
                             </div>
                             <!--/ End Shop Top -->
@@ -124,7 +173,7 @@
                     </div>
                     <div class="row" id="food-container">
 
-                        <div class="col-lg-4 col-md-6 col-12"  th:each="Res: ${listFood}">
+                        <div class="col-lg-4 col-md-6 col-12" th:each="Res: ${listFood}">
                             <div class="single-product">
                                 <div class="product-img">
                                     <a href="product-details.html">
@@ -135,7 +184,9 @@
 
                                         <div class="product-action-2">
                                             <!--                                        <a title="Add to cart" th:href="/Order/AddFoodToCart/${Res.getCategory().getRestaurant().getResId()}/${Res.getFoodId()}">Add to cart</a>-->
-                                            <a title="Add to cart" th:id=" ${Res.foodId}" th:href="@{'/Order/AddFoodToCart/' + ${Res.getCategory().getRestaurant().getResId()} + '/' + ${Res.getFoodId()}}">Add to cart</a>
+                                            <a title="Add to cart" th:id=" ${Res.foodId}"
+                                               th:href="@{'/Order/AddFoodToCart/' + ${Res.getCategory().getRestaurant().getResId()} + '/' + ${Res.getFoodId()}}">Add
+                                                to cart</a>
 
                                         </div>
                                     </div>
@@ -153,7 +204,7 @@
 
                     </div>
 
-                    <br />
+                    <br/>
 
                     <div class="container mt-3 mb-5">
 
@@ -161,16 +212,19 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li th:if="${currentPage != 0}" class="page-item">
-                                    <a class="page-link" th:href="@{'?page=' + ${currentPage - 1} + '&search=' + ${search} + '&category='+ ${category}}">Previous</a>
+                                    <a class="page-link"
+                                       th:href="@{'?page=' + ${currentPage - 1} + '&search=' + ${search} + '&category='+ ${category}}">Previous</a>
                                 </li>
 
                                 <li th:each="i : ${#numbers.sequence(1, totalPage)}"
                                     th:classappend="${currentPage == i - 1} ? 'active' : ''" class="page-item">
-                                    <a class="page-link" th:href="@{'?page=' + ${i - 1} + '&search=' + ${search}+ '&category='+ ${category}}">[[${i}]]</a>
+                                    <a class="page-link"
+                                       th:href="@{'?page=' + ${i - 1} + '&search=' + ${search}+ '&category='+ ${category}}">[[${i}]]</a>
                                 </li>
 
                                 <li th:if="${currentPage + 1 != totalPage}" class="page-item">
-                                    <a class="page-link" th:href="@{'?page=' + ${currentPage + 1} + '&search=' + ${search}+ '&category='+ ${category}}">Next</a>
+                                    <a class="page-link"
+                                       th:href="@{'?page=' + ${currentPage + 1} + '&search=' + ${search}+ '&category='+ ${category}}">Next</a>
                                 </li>
                             </ul>
                         </nav>

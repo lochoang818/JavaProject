@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -53,7 +54,7 @@ public class AdminController {
         restaurantService.addRestaurant(newRestaurant);
         List<Restaurant> restaurants = restaurantService.findAll();
         model.addAttribute("restaurants", restaurants);
-        return "redirect:/restaurant-management";
+        return "redirect:/admin/restaurant-management";
     }
 
 
@@ -71,7 +72,7 @@ public class AdminController {
         restaurantService.updateRestaurant(newRestaurant);
         List<Restaurant> restaurants = restaurantService.findAll();
         model.addAttribute("restaurants", restaurants);
-        return "redirect:/restaurant-management";
+        return "redirect:/admin/restaurant-management";
     }
 
     @PostMapping("/restaurant-management/delete")
@@ -79,7 +80,7 @@ public class AdminController {
         restaurantService.deleteRestaurant(resId);
         List<Restaurant> restaurants = restaurantService.findAll();
         model.addAttribute("restaurants", restaurants);
-        return "redirect:/restaurant-management";
+        return "redirect:/admin/restaurant-management";
     }
 
     @GetMapping("/category-management")
@@ -98,7 +99,7 @@ public class AdminController {
         categoryService.addCategory(newCategory);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
-        return "redirect:/category-management";
+        return "redirect:/admin/category-management";
     }
 
     @PostMapping("/category-management/edit")
@@ -106,15 +107,20 @@ public class AdminController {
         categoryService.updateCategory(newCategory);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
-        return "redirect:/category-management";
+        return "redirect:/admin/category-management";
     }
 
     @PostMapping("/category-management/delete")
     public String deleteCategory(@RequestParam(name = "cate_id") int cate_id, Model model) {
-        categoryService.deleteCategory(cate_id);
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
-        return "redirect:/category-management";
+        try{
+            categoryService.deleteCategory(cate_id);
+            List<Category> categories = categoryService.findAll();
+            model.addAttribute("categories", categories);
+            return "redirect:/admin/category-management";
+        }catch (Exception exception) {
+            return "redirect:/admin/food-management";
+        }
+
     }
 
     @GetMapping("/food-management")
@@ -135,7 +141,7 @@ public class AdminController {
         foodService.addFood(newFood);
         List<Food> foods = foodService.findAll();
         model.addAttribute("foods", foods);
-        return "redirect:/food-management";
+        return "redirect:/admin/food-management";
     }
 
     @PostMapping("/food-management/edit")
@@ -143,7 +149,7 @@ public class AdminController {
         foodService.updateFood(newFood);
         List<Food> foods = foodService.findAll();
         model.addAttribute("foods", foods);
-        return "redirect:/food-management";
+        return "redirect:/admin/food-management";
     }
 
     @PostMapping("/food-management/delete")
@@ -151,7 +157,7 @@ public class AdminController {
         foodService.deleteFood(foodId);
         List<Food> foods = foodService.findAll();
         model.addAttribute("foods", foods);
-        return "redirect:/food-management";
+        return "redirect:/admin/food-management";
     }
 
     @GetMapping("/order-management")
@@ -169,7 +175,7 @@ public class AdminController {
         orderService.updateOrder(newOrder);
         List<Orders> orders = orderService.findAll();
         model.addAttribute("orders", orders);
-        return "redirect:/order-management";
+        return "redirect:/admin/order-management";
     }
 
     @PostMapping("/order-management/delete")
@@ -177,7 +183,7 @@ public class AdminController {
         orderService.deleteOrder(order_id);
         List<Orders> orders = orderService.findAll();
         model.addAttribute("orders", orders);
-        return "redirect:/order-management";
+        return "redirect:/admin/order-management";
     }
 
 

@@ -80,7 +80,7 @@
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form th:action="@{/food-management/add}" th:object="${newFood}" method="post">
+            <form th:action="@{/admin/food-management/add}" th:object="${newFood}" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Food</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -124,7 +124,7 @@
 <div id="editEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form th:action="@{/food-management/edit}" th:object="${newFood}" method="post">
+            <form th:action="@{/admin/food-management/edit}" th:object="${newFood}" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit Employee</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -169,13 +169,13 @@
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form th:action="@{/food-management/delete}"  th:object="${newFood}" method="post">
+            <form th:action="@{/admin/food-management/delete}"  th:object="${newFood}" method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Delete Food</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" th:field="*{foodId}" class="form-control" required name="foodId"/>
+                    <input type="hidden" th:field="*{foodId}" class="form-control" required name="foodId"/>
 
                     <p id="foodNameParagraph">Are you sure you want to delete these Records?</p>
                     <p class="text-warning"><small>This action cannot be undone.</small></p>
