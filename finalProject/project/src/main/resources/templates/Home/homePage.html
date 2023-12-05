@@ -107,7 +107,7 @@
                                                             <!-- Start Single Product -->
                                                             <div class="single-product" th:each="lst: ${lstRes}">
                                                                 <div class="product-img">
-                                                                    <a href="product-details.html">
+                                                                    <a th:href="@{/Restaurant/show/{id}(id=${lst.getResId()})}">
                                                                         <img class="default-img" th:src="${lst.address}"
                                                                              alt="#">
                                                                         <span class="out-of-stock">Hot</span>

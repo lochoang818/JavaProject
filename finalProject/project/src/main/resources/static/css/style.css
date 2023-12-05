@@ -646,13 +646,11 @@ Version:1.0
 	position: relative;
 }
 .header.shop .search-bar {
-	width: 535px;
 	height: 50px;
 	display: inline-block;
 	background: #fff;
 	position: relative;
 	margin: 0;
-	line-height: 45px;
 	border-radius: 5px;
 	border: 1px solid #ececec;
 }
@@ -1763,7 +1761,8 @@ Version:1.0
   position: relative;
 }
 .single-product .product-img a img {
-  width: 100%;
+  width: 250px;
+  height: 200px;
 }
 .single-product .product-img a img.hover-img {
   position: absolute;
