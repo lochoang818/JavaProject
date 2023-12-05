@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant,Integer> {
     public List<Restaurant> findAll();
-    @Query("SELECT c from Restaurant c WHERE c.name LIKE CONCAT('%', :query, '%')")
+    @Query("SELECT c from Restaurant c WHERE c.logoUrl LIKE CONCAT('%', :query, '%')")
     public Page<Restaurant> searchRes(String query, Pageable p);
     @Query("SELECT c from Category c WHERE c.restaurant.resId = :query")
     public List<Category> searchCategory(String query);
