@@ -85,8 +85,27 @@
                                         <li class="last">You Pay<span class="totalPriceCart" th:text="${TotalPrice}">      <span>$</span></span>
                                         </li>
                                     </ul>
+                                    <div class="col-12">
+                                        <form class="form" method="post" th:action="@{'/VNPay/checkout/' + ${idRes}}">
+                                            <ul>
+                                                <label for="address" class="form-label">Address<span>*</span></label>
+                                                <input type="text" class="form-control" id="address" name="address" th:value="${address}">
+                                                <label for="phone" class="form-label">Phone Number<span>*</span></label>
+                                                <input type="text" class="form-control" id="phone" name="phoneNumber" th:value="${phoneNumber}">
+                                            </ul>
+                                            <br>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <button type="submit" class="btn btn-primary">Check out</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
                                     <div class="button5">
-                                        <a class="btn" th:href="@{'/VNPay/checkout/' +${idRes} }">Checkout</a>
+<!--
+                                        <a class="btn" th:href="@{'/VNPay/checkout/' + ${idRes} + '/' + ${address} + '/' + ${phoneNumber} }">Checkout</a>
+-->
                                         <a class="btn" th:href="@{'/Restaurant/show/' +${idRes} }">Continue shopping</a>
                                     </div>
                                 </div>

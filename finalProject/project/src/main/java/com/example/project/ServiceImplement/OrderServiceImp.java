@@ -90,6 +90,10 @@ public class OrderServiceImp implements OrderService {
     {
         this.orderRepository.updateOrderShipping(totalPrice, order_id, localDateTime);
     }
+    public void updateAddressPhone(String address, String order_id, String phoneNumber)
+    {
+        this.orderRepository.updateAddressPhone(address, order_id, phoneNumber);
+    }
 
     public Optional<Orders> findOrdering(String email, int restaurantId) {
         return this.orderRepository.findOrdering(email, "Ordering", restaurantId);

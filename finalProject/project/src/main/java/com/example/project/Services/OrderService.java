@@ -15,6 +15,7 @@ public interface OrderService {
     public void insertCart(String email, int resId);
     public Optional<Orders> findOrdering(String email, int restaurantId);
     public void updateOrderShipping(String order_id, double totalPrice, String localDateTime);
+    public void updateAddressPhone(String address, String order_id, String phoneNumber);
     public List<Restaurant> CartList(String email);
 
     public void updateQuantity(int newQuantity, int foodId, double price);

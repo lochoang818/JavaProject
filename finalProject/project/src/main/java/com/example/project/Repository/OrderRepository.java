@@ -35,5 +35,9 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Query("SELECT o FROM Orders o WHERE o.order_id = :order_id")
     public Optional<Orders> findByOrder_id(String order_id);
 
+    @Modifying
+    @Query("UPDATE Orders c SET c.address = :address, c.Phone = :phoneNumber WHERE c.order_id = :order_id")
+    @Transactional
+    void updateAddressPhone(@Param("address") String address, @Param("order_id") String order_id, @Param("phoneNumber") String phoneNumber);
 
 }

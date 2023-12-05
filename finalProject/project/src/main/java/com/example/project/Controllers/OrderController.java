@@ -105,6 +105,10 @@ public class OrderController {
             modelAndView.addObject("listFood", lstFood);
             Double totalPrice = this.orderService.totalPriceCart(email, ResId);
             modelAndView.addObject("TotalPrice", totalPrice);
+
+            User user = userRepo.findByEmail(email);
+            modelAndView.addObject("address", user.getAddress());
+            modelAndView.addObject("phoneNumber", user.getPhone());
         }
 
         return modelAndView;
