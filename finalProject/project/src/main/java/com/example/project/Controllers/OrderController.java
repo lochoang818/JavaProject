@@ -77,6 +77,11 @@ public class OrderController {
             modelAndView.addObject("listFood", lstFood);
             Double totalPrice = this.orderService.totalPriceCart(email, ResId);
             modelAndView.addObject("TotalPrice", totalPrice);
+
+            Optional<Orders> o = this.orderService.findOrdering(email, ResId);
+
+            modelAndView.addObject("address", o.get().getAddress());
+            modelAndView.addObject("phoneNumber", o.get().getPhone());
         }
 
         return modelAndView;
@@ -107,8 +112,8 @@ public class OrderController {
             modelAndView.addObject("TotalPrice", totalPrice);
 
             User user = userRepo.findByEmail(email);
-            modelAndView.addObject("address", user.getAddress());
-            modelAndView.addObject("phoneNumber", user.getPhone());
+            modelAndView.addObject("address", o.get().getAddress());
+            modelAndView.addObject("phoneNumber", o.get().getPhone());
         }
 
         return modelAndView;
